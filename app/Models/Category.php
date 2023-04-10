@@ -11,6 +11,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $guard = [];
+
     public function subcategories()
     {
     	return $this->hasMany(Subcategory::class);

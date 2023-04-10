@@ -13,6 +13,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $guard = [];
+
     public function user()
     {
     	return $this->belongsTo(User::class);

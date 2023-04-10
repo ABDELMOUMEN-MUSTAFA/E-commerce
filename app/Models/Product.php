@@ -12,6 +12,7 @@ use App\models\ProductVariant;
 use App\models\Promotion;
 use App\models\Coupon;
 use App\models\File;
+use App\models\Review;
 
 class Product extends Model
 {
@@ -55,5 +56,10 @@ class Product extends Model
     public function files()
     {
     	return $this->hasMany(File::class);
+    }
+
+    public function reviews()
+    {
+    	return $this->hasMany(Review::class);
     }
 }

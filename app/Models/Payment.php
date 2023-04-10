@@ -12,6 +12,8 @@ class Payment extends Model
 {
     use HasFactory;
 
+    protected $guard = [];
+
     public function invoice()
     {
     	return $this->hasOne(Invoice::class);

@@ -10,6 +10,8 @@ use App\models\User;
 class Invoice extends Model
 {
     use HasFactory;
+    
+    protected $guard = [];
 
     public function payment()
     {

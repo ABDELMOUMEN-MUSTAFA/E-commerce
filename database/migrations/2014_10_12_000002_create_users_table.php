@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->string('city', 100);
             $table->string('postal_code', 20);
-            $table->unsignedBigInteger('country_id');
+            $table->unsignedBigInteger('country_id')->nullable();
             $table->string('phone_number', 25);
             $table->string('role', 25);
             $table->boolean('is_active')->default(1);
@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('country_id')->nullable()->references('id')->on('users')->nullOnDelete();
+            $table->foreign('country_id')->references('id')->on('countries')->nullOnDelete();
         });
     }
 

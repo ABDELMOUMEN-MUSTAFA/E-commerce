@@ -15,14 +15,14 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('shipper_id');
-            $table->unsignedBigInteger('order_status_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('shipper_id')->nullable();
+            $table->unsignedBigInteger('order_status_id')->nullable();
             $table->date('shipped_date')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->nullable()->references('id')->on('users')->nullOnDelete();
-            $table->foreign('shipper_id')->nullable()->references('id')->on('shippers')->nullOnDelete();
-            $table->foreign('order_status_id')->nullable()->references('id')->on('order_statuses')->nullOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('shipper_id')->references('id')->on('shippers')->nullOnDelete();
+            $table->foreign('order_status_id')->references('id')->on('order_statuses')->nullOnDelete();
         });
     }
 

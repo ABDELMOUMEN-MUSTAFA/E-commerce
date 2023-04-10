@@ -20,11 +20,11 @@ class CreateProductsTable extends Migration
             $table->integer('quantity_in_stock');
             $table->longText('description');
             $table->string('type_product');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->boolean('is_draft');
             $table->boolean('is_active');
             $table->timestamps();
-            $table->foreign('category_id')->nullable()->references('id')->on('categories')->nullOnDelete();
+            $table->foreign('category_id')->references('id')->on('categories')->nullOnDelete();
         });
     }
 

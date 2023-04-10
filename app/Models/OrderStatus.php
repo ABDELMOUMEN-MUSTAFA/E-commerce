@@ -10,6 +10,8 @@ class OrderStatus extends Model
 {
     use HasFactory;
 
+    protected $guard = [];
+
     public function order()
     {
     	return $this->hasMany(Order::class);

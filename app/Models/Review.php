@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\models\User;
+use App\models\Product;
 
 class Review extends Model
 {
@@ -15,8 +16,8 @@ class Review extends Model
     	return $this->belongsTo(User::class);
     }
 
-    // public function orderProduct()
-    // {
-    // 	return $this->hasOne(OrderProduct)
-    // }
+    public function product()
+    {
+    	return $this->belongsTo(Product::class);
+    }
 }

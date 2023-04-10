@@ -15,7 +15,6 @@ class ChatMessage extends Model
         'sender_id',
         'recipient_id',
         'message_content',
-        'timestamp',
     ];
 
     public function sender()

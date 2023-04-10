@@ -11,6 +11,8 @@ class ShoppingCart extends Model
 {
     use HasFactory;
 
+    protected $guard = [];
+
     public function user()
     {
     	return $this->hasOne(User::class);

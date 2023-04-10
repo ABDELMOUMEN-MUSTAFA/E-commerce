@@ -10,6 +10,8 @@ class PaymentMethod extends Model
 {
     use HasFactory;
 
+    protected $guard = [];
+
     public function payments()
     {
     	return $this->hasMany(Payment::class);

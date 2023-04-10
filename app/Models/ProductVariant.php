@@ -10,6 +10,8 @@ class ProductVariant extends Model
 {
     use HasFactory;
 
+    protected $guard = [];
+
     public function product()
     {
     	return $this->belogsTo(Product::class);

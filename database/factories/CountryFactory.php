@@ -14,7 +14,8 @@ class CountryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->country,
+            'flag_icon' => $this->faker->countryCode,
         ];
     }
 }
