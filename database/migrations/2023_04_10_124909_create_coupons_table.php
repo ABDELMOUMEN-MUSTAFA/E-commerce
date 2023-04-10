@@ -15,7 +15,13 @@ class CreateCouponsTable extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('product_id');
+            $table->string('code', 20);
+            $table->date('expiration_date');
+            $table->boolean('is_active')->default(true);
+            $table->tinyInteger('discount');
             $table->timestamps();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

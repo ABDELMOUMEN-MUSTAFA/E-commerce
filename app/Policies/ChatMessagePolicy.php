@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Support;
+use App\Models\ChatMessage;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SupportPolicy
+class ChatMessagePolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class SupportPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Support  $support
+     * @param  \App\Models\ChatMessage  $chatMessage
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Support $support)
+    public function view(User $user, ChatMessage $chatMessage)
     {
         //
     }
@@ -48,10 +48,10 @@ class SupportPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Support  $support
+     * @param  \App\Models\ChatMessage  $chatMessage
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Support $support)
+    public function update(User $user, ChatMessage $chatMessage)
     {
         //
     }
@@ -60,10 +60,10 @@ class SupportPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Support  $support
+     * @param  \App\Models\ChatMessage  $chatMessage
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Support $support)
+    public function delete(User $user, ChatMessage $chatMessage)
     {
         //
     }
@@ -72,10 +72,10 @@ class SupportPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Support  $support
+     * @param  \App\Models\ChatMessage  $chatMessage
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Support $support)
+    public function restore(User $user, ChatMessage $chatMessage)
     {
         //
     }
@@ -84,10 +84,10 @@ class SupportPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Support  $support
+     * @param  \App\Models\ChatMessage  $chatMessage
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Support $support)
+    public function forceDelete(User $user, ChatMessage $chatMessage)
     {
         //
     }

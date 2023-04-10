@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class OrderItemFactory extends Factory
+class ChatMessageFactory extends Factory
 {
     /**
      * Define the model's default state.

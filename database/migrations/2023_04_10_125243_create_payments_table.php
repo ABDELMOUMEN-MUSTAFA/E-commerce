@@ -15,7 +15,12 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('payment_method_id')->nullable();
+            $table->float('amount');
             $table->timestamps();
+            $table->foreign('user_id')->nullable()->references('id')->on('users')->nullOnDelete();
+            $table->foreign('payment_method_id')->nullable()->references('id')->on('payment_methods')->nullOnDelete();
         });
     }
 

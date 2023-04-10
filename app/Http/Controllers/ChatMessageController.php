@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Support;
-use App\Http\Requests\StoreSupportRequest;
-use App\Http\Requests\UpdateSupportRequest;
+use App\Models\ChatMessage;
+use App\Http\Requests\StoreChatMessageRequest;
+use App\Http\Requests\UpdateChatMessageRequest;
 
-class SupportController extends Controller
+class ChatMessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class SupportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreSupportRequest  $request
+     * @param  \App\Http\Requests\StoreChatMessageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSupportRequest $request)
+    public function store(StoreChatMessageRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class SupportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Support  $support
+     * @param  \App\Models\ChatMessage  $chatMessage
      * @return \Illuminate\Http\Response
      */
-    public function show(Support $support)
+    public function show(ChatMessage $chatMessage)
     {
         //
     }
@@ -53,10 +53,10 @@ class SupportController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Support  $support
+     * @param  \App\Models\ChatMessage  $chatMessage
      * @return \Illuminate\Http\Response
      */
-    public function edit(Support $support)
+    public function edit(ChatMessage $chatMessage)
     {
         //
     }
@@ -64,11 +64,11 @@ class SupportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateSupportRequest  $request
-     * @param  \App\Models\Support  $support
+     * @param  \App\Http\Requests\UpdateChatMessageRequest  $request
+     * @param  \App\Models\ChatMessage  $chatMessage
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSupportRequest $request, Support $support)
+    public function update(UpdateChatMessageRequest $request, ChatMessage $chatMessage)
     {
         //
     }
@@ -76,10 +76,10 @@ class SupportController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Support  $support
+     * @param  \App\Models\ChatMessage  $chatMessage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Support $support)
+    public function destroy(ChatMessage $chatMessage)
     {
         //
     }
