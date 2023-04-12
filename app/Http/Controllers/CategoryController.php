@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('app.categories.index', ['categories' => Category::all()]);
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -36,7 +36,16 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        // Retrieve the validated input data...
+        $validated = $request->validated();
+        if($request->hasFile('photo')){
+            $validated['photo'] = $request->photo->store('images/categories', 'public');
+        }
+    
+        Category::create($validated);
+        return response()->json([
+            'message' => 'Category added successfully.'
+        ]);
     }
 
     /**
@@ -47,7 +56,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        // return view('categories.show', compact('category'));
     }
 
     /**
@@ -58,7 +67,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        // return view('categories.edit', compact('category'));
     }
 
     /**
@@ -81,6 +90,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return response()->json([
+            'message' => 'Category deleted successfully.'
+        ]);
     }
 }
