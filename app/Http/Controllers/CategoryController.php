@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('app.categories.create');
     }
 
     /**
@@ -39,13 +39,11 @@ class CategoryController extends Controller
         // Retrieve the validated input data...
         $validated = $request->validated();
         if($request->hasFile('photo')){
-            $validated['photo'] = $request->photo->store('images/categories', 'public');
+            $validated['photo'] = 'storage/'.$request->photo->store('images/categories', 'public');
         }
     
         Category::create($validated);
-        return response()->json([
-            'message' => 'Category added successfully.'
-        ]);
+        return redirect()->route('categories.index')->with('message', 'Category created successfully.');
     }
 
     /**
@@ -56,7 +54,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        // return view('categories.show', compact('category'));
+        abort(404);
     }
 
     /**
@@ -67,7 +65,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        // return view('categories.edit', compact('category'));
+        return view('app.categories.edit', compact('category'));
     }
 
     /**
@@ -79,7 +77,16 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        // Retrieve the validated input data...
+        $validated = $request->validated();
+        if($request->hasFile('photo')){
+            $category->photo = 'storage/'.$request->photo->store('images/categories', 'public');
+        }
+
+        $category->name = $validated['name'];
+        $category->description = $validated['description'];
+        $category->save();
+        return redirect()->route('categories.index')->with('message', 'Category updated successfully.');;
     }
 
     /**
@@ -91,8 +98,14 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return response()->json([
-            'message' => 'Category deleted successfully.'
-        ]);
+        return redirect()->route('categories.index')->with('message', 'Category deleted successfully.');
+    }
+
+
+    public function toggleStatus(Category $category)
+    {
+        $category->status = !$category->status;
+        $category->save();
+        return redirect()->route('categories.index')->with('message', 'Category <strong>'.$category->name.'</strong> status changed successfully.');
     }
 }

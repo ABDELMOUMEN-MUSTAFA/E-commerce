@@ -10,7 +10,7 @@ class Size extends Model
 {
     use HasFactory;
 
-    protected $guard = [];
+    protected $guarded = [];
 
     public function productVariants()
     {

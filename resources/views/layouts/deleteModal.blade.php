@@ -1,18 +1,24 @@
 @section('deleteModal')
-<!-- Delete Modal -->
-<div id="@yield('delete_model_id')" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content modal-filled bg-danger">
-            <div class="modal-body p-4">
-                <div class="text-center">
-                    <i class="dripicons-wrong h1"></i>
-                    <h4 class="mt-2">@yield('delete_model_title')</h4>
-                    <p class="mt-3">@yield('delete_model_body')</p>
-                    <button id="confirm" type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
-                </div>
+<!-- Warning Header Modal -->
+<div id="delete-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="warning-header-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-warning">
+                <h4 class="modal-title" id="warning-header-modalLabel">@yield('modalTitle')</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                @yield('modalBody')
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <form id="delete-form" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-warning">Confirm</button>
+                </form>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<!-- / Delete Modal -->
 @endsection

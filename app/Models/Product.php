@@ -17,10 +17,23 @@ use App\models\Review;
 class Product extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'price',
+        'quantity_in_stock',
+        'type_product',
+        'description',
+        'category_id'
+    ];
+
+    public function getPriceAttribute($price)
+    {
+        return '$'.$price;
+    }
 
     public function orders()
     {
-    	return $this->belongsToMany(Order::class);
+    	return $this->belongsToMany(Order::class)->withPivot(['quantity', 'unit_price'])->withTimestamps();
     }
 
     public function shoppingCarts()
@@ -62,4 +75,9 @@ class Product extends Model
     {
     	return $this->hasMany(Review::class);
     }
+
+    protected $casts = [
+        'is_active' => 'boolean',
+        'quantity_in_stock' => 'integer'
+    ];
 }

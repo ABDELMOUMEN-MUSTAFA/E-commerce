@@ -13,7 +13,7 @@ class UpdateSubcategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class UpdateSubcategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name" => "bail|required|between:3,70|regex:/^[a-zA-Z0-9\s]+$/",
+            "category_id" => "required|exists:categories,id",
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "name.regex" => "Subcategory name except only alphanumeric and spaces.",
         ];
     }
 }

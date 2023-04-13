@@ -10,7 +10,11 @@ class Photo extends Model
 {
     use HasFactory;
 
-    protected $guard = [];
+    protected $casts = [
+    	'is_primary' => 'boolean'
+    ];
+
+    protected $guarded = [];
 
     public function product()
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subcategory;
+use App\Models\Category;
 use App\Http\Requests\StoreSubcategoryRequest;
 use App\Http\Requests\UpdateSubcategoryRequest;
 
@@ -13,9 +14,9 @@ class SubcategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() 
     {
-        //
+        return view('app.subcategories.index', ['subcategories' => Subcategory::all()->sortBy('category_id')]);
     }
 
     /**
@@ -25,7 +26,7 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('app.subcategories.create', ['categories' => Category::all()]);
     }
 
     /**
@@ -36,7 +37,9 @@ class SubcategoryController extends Controller
      */
     public function store(StoreSubcategoryRequest $request)
     {
-        //
+        // Retrieve the validated input data...
+        Subcategory::create($request->validated());
+        return redirect()->route('subcategories.index')->with('message', 'Subcategory created successfully.');
     }
 
     /**
@@ -47,7 +50,7 @@ class SubcategoryController extends Controller
      */
     public function show(Subcategory $subcategory)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -58,7 +61,8 @@ class SubcategoryController extends Controller
      */
     public function edit(Subcategory $subcategory)
     {
-        //
+        $categories = Category::all();
+        return view('app.subcategories.edit', compact('subcategory', 'categories'));
     }
 
     /**
@@ -70,7 +74,12 @@ class SubcategoryController extends Controller
      */
     public function update(UpdateSubcategoryRequest $request, Subcategory $subcategory)
     {
-        //
+        // Retrieve the validated input data...
+        $validated = $request->validated();
+        $subcategory->name = $validated['name'];
+        $subcategory->category_id = $validated['category_id'];
+        $subcategory->save();
+        return redirect()->route('subcategories.index')->with('message', 'Subcategory updated successfully.');;
     }
 
     /**
@@ -81,6 +90,7 @@ class SubcategoryController extends Controller
      */
     public function destroy(Subcategory $subcategory)
     {
-        //
+        $subcategory->delete();
+        return redirect()->route('subcategories.index')->with('message', 'Subcategory deleted successfully.');
     }
 }

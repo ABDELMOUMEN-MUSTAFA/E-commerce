@@ -21,8 +21,7 @@ class CreateProductsTable extends Migration
             $table->longText('description');
             $table->string('type_product');
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->boolean('is_draft');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->nullOnDelete();
         });

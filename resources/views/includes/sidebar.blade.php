@@ -36,19 +36,53 @@
                 <div class="collapse" id="sidebarCategories">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="{{ route('categories.index') }}">Categories List</a>
+                            <a href="{{ route('categories.index') }}">All Categories</a>
                         </li>
                         <li>
-                            <a href="#">Subcategories List</a>
+                            <a href="{{ route('categories.create') }}">Add Category</a>
                         </li>
                     </ul>
                 </div>
-            </li>    
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarSubcategories" aria-expanded="false" aria-controls="sidebarSubcategories" class="side-nav-link">
+                    <i class="uil-store"></i>
+                    <span>Manage Subcategories</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarSubcategories">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{ route('subcategories.index') }}">All Subcategories</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('subcategories.create') }}">Add Subcategory</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarProducts" aria-expanded="false" aria-controls="sidebarProducts" class="side-nav-link">
+                    <i class="uil-store"></i>
+                    <span>Manage Products</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarProducts">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{ route('products.index') }}">All Products</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('products.create') }}">Add Product</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>     
 
             <li class="side-nav-item">
                 <a href="apps-social-feed.html" class="side-nav-link">
                     <i class="uil-rss"></i>
-                    <span> Ferradiya </span>
+                    <span> Dashboard </span>
                 </a>
             </li>
         </ul>

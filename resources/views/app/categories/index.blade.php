@@ -2,10 +2,6 @@
 
 @section('title', 'Categories')
 
-@section('meta_csrf')
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-@endsection
-
 @section('content')
 <div class="container-fluid">
     
@@ -23,14 +19,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
-                        <div class="col-sm-4">
-                            <button class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#add-category"><i class="mdi mdi-plus-circle me-2"></i> Add Category</button>
-                        </div>
-                    </div>
-
+                	@if(session('message'))
+                	<div class="alert alert-success alert-dismissible bg-success text-white border-0 fade show" role="alert">
+					    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					    {!! session('message') !!}
+					</div>
+                    @endif
                     <div class="table-responsive">
-                        <table class="table table-hover table-centered mb-0">
+                        <table class="table table-centered mb-0">
 						    <thead>
 						        <tr>
 						            <th class="all">Category</th>
@@ -50,23 +46,28 @@
 							            	@if(!empty($category->description))
 							            		<p class="m-0 text-body text-truncate" style="max-width: 80px">{{ $category->description }}</p>
 							            		@else
-							            		<p class="m-0 text-body text-truncate" style="max-width: 80px">None</p>
+							            		<h6 class="m-0"><span class="badge bg-danger">None</span></h6>
 							            	@endif
 							            	
 							            </td>
 							            <td>
-							            	<span class="badge bg-success">Active</span>
+							            	<form id="toggle-form" method="POST" action="{{route('toggleStatus', $category->id)}}">
+							            	<input type="checkbox" id="status" @if($category->status === true) checked @endif data-switch="none"/>
+											<label for="status" data-on-label="" data-off-label=""></label>
+											@csrf
+											@method('PATCH')
+											</form>
 							            </td>
 							            <td>
 							            	@if(!empty($category->photo))
-							            		<img src="{{ asset('storage/'.$category->photo) }}" alt="category image" class="rounded me-3" height="48">
+							            		<img src="{{ asset($category->photo) }}" alt="category image" class="rounded me-3" height="48">
 							            		@else
-							            		<p class="m-0 text-body text-truncate" style="max-width: 80px">None</p>
+							            		<h6 class="m-0"><span class="badge bg-danger">None</span></h6>
 							            	@endif
 							            </td>
 							            <td class="table-action">
-	                                        <a href="javascript:void(0);" data-id="{{ $category->id }}" class="action-icon edit"> <i class="mdi mdi-square-edit-outline"></i></a>
-	                                        <a href="javascript:void(0);" data-id="{{ $category->id }}" class="action-icon delete"> <i class="mdi mdi-delete"></i></a>
+	                                        <a href="{{ route('categories.edit', $category->id) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+	                                        <a data-id="{{$category->id}}" href="javascript:void(0);" class="action-icon delete"> <i class="mdi mdi-delete"></i></a>
                                     	</td>
 						        	</tr>
 								@empty
@@ -88,136 +89,27 @@
 </div> <!-- content -->
 @endsection
 
-<!-- Add Modal -->
-@section('add_model_id', 'add-category')
-@section('add_model_title', 'Add Category')
-@section('add_model_body')
-<form id="add-category-form" method="POST" enctype="multipart/form-data">
-	<div class="mb-3">
-	    <label for="name" class="form-label">Name</label>
-	    <input name="name" type="text" id="name" class="form-control" placeholder="Entre categoty name">
-        <div class="invalid-feedback"></div>
-	</div>
-	<div class="mb-3">
-	    <label for="description" class="form-label">Description</label>
-	    <textarea placeholder="Entre category description" class="form-control" name="description" id="description" rows="5"></textarea>
-	    <div class="invalid-feedback"></div>
-	</div>
-	<div class="mb-3">
-	    <label for="photo" class="form-label">Photo</label>
-	    <input type="file" name="photo" id="photo" class="form-control">
-	    <div class="invalid-feedback"></div>
-	</div>
-	<div class="modal-footer">
-        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Add</button>
-    </div>
-</form>
-@endsection
 
-@include('layouts.addModal')
-<!-- End Add Modal -->
 
-<!-- Delete Modal -->
-@section('delete_model_id', 'delete-category')
-@section('delete_model_title', 'Are you sue ?')
-@section('delete_model_body')
-You are just about to delete a category, press continue to precced
-@endsection
+@section('modalTitle', 'Removing Category')
+@section('modalBody', 'Are you sure ?')
 
 @include('layouts.deleteModal')
-<!-- End Delete Modal -->
 
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-	$(document).ready(function () {
-		const showingAndRemovingErrors = (errors, name) => {
-			const field = $(`[name="${name}"]`);
-        	if(errors[name]){
-        		field.addClass('is-invalid');
-        		field.next().text(errors[name]);
-        	}else{
-        		field.removeClass('is-invalid');
-        		field.next().text("");
-        	}	
-		}
-
-		const clearErrorMessagesAndValues = () => {
-			const $fields = $("input, textarea");
-			$fields.removeClass('is-invalid');
-			$fields.next().text("");
-			$field.val("");
-		}
-
-		// Add Category
-		$('#add-category-form').submit(function (event) {
-			event.preventDefault();
-			const form = new FormData(this);
-			$.ajax({
-				headers : {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url : `{{ route('categories.store') }}`,
-                type : 'POST',
-                data : form,
-                dataType : 'json',
-                processData: false,
-                cache: false,
-      	 		contentType: false,
-                success : function (response){
-                	console.log(response.message);
-                	$('#add-category').modal('toggle');
-                	clearErrorMessagesAndValues();
-                },
-                error : function(data) {
-                	const { errors } = JSON.parse(data.responseText);
-                	showingAndRemovingErrors(errors, 'name');
-                	showingAndRemovingErrors(errors, 'description');
-                	showingAndRemovingErrors(errors, 'photo');
-				}
-            });
-		});
-		// End Add Category
-
-		// Delete Category
-		$('.delete').click(function () {
-			const id = $(this).data('id');
-			$('#delete-category').modal('show');
-
-			// remove Old EventListener
-			$('#confirm').off();
-			$('#confirm').click(function (){
-				$.ajax({
-					headers : {
-                    	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                	},
-                	url : "{{ route('categories.index') }}/" + id,
-                	type: "DELETE",
-                	dataType : 'json',
-                	success : function (response){
-	                	console.log(response.message);
-	                },
-	                error : function(data) {
-	                	console.log(data.responseText);
-					}
-				});
-			});
+	$(function () {
+		const url = '{{route("categories.index")}}';
+		$('.delete').click(function(){
+			$('#delete-modal').modal('show')
+			$('#delete-form').attr('action', `${url}/${$(this).data('id')}`);
 		});
 
-		// CSRF TOKEN REFRESHER
-		let csrfToken = $('[name="csrf_token"]').attr('content');
-    
-	    setInterval(refreshToken, 3600000); // 1 hour 
-	    
-	    function refreshToken(){
-	        $.get('refresh-csrf').done(function(data){
-	            csrfToken = data; // the new token
-	        });
-	    }
-
-	    setInterval(refreshToken, 3600000); // 1 hour 
+		// Toggle Category Status
+		$('#status').click(function(e) {
+    		$('#toggle-form').submit();
+		});
 	});
 </script>
 @endsection

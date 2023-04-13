@@ -22,4 +22,8 @@ class Category extends Model
     {
     	return $this->hasMany(Product::class);
     }
+
+    protected $casts = [
+        'status' => 'boolean',
+    ];
 }

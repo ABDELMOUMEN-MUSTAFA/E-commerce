@@ -13,7 +13,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $guard = [];
+    protected $guarded = [];
 
     public function user()
     {
@@ -32,6 +32,6 @@ class Order extends Model
 
     public function products()
     {
-    	return $this->belongsToMany(Product::class);
+    	return $this->belongsToMany(Product::class)->withPivot(['quantity', 'unit_price'])->withTimestamps();
     }
 }

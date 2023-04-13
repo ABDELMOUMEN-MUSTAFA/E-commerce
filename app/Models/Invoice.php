@@ -11,7 +11,7 @@ class Invoice extends Model
 {
     use HasFactory;
     
-    protected $guard = [];
+    protected $guarded = [];
 
     public function payment()
     {
