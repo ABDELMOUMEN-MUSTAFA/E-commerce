@@ -64,7 +64,7 @@
                                 <td>{{ $product->price }}</td>
                                 <td>{{ $product->quantity_in_stock }}</td>
                                 <td>
-                                    <span class="badge bg-primary rounded-pill">{{ $product->type_product }}</span>
+                                    <span class="badge bg-primary rounded-pill">{{ ucfirst($product->type_product) }}</span>
                                 </td>
                                 <td>
                                     <form id="toggle-form" method="POST" action="{{route('products.toggleActive', $product->id)}}">

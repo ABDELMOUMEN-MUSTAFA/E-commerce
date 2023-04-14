@@ -4,11 +4,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-colored-header bg-warning">
-                <h4 class="modal-title" id="warning-header-modalLabel">@yield('modalTitle')</h4>
+                <h4 class="modal-title" id="warning-header-modalLabel">@yield('delete_model_title')</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-                @yield('modalBody')
+                @yield('delete_model_body')
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>

@@ -13,7 +13,7 @@ class UpdateProductVariantRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateProductVariantRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'bail|required|between:3,100',
+            'price' => 'bail|required|numeric|max:2000000',
+            'color_id' => 'required|exists:colors,id',
+            'sizes' => 'required',
+            'sizes.*' => 'numeric|exists:sizes,id',
         ];
     }
 }

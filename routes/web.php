@@ -6,6 +6,7 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ProductVariantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +50,12 @@ Route::post('files/store', [FileController::class, 'store'])->name('files.store'
 Route::get('files/download/{file}', [FileController::class, 'download'])->name('files.download');
 Route::delete('files/destroy/{file}', [FileController::class, 'destroy'])->name('files.destroy');
 Route::patch('files/rename/{file}', [FileController::class, 'rename'])->name('files.rename');
+
+// Product Variants
+Route::get('productVariants/{product}', [ProductVariantController::class, 'create'])->name('productVariants.create');
+Route::post('productVariants/{product}', [ProductVariantController::class, 'store'])->name('productVariants.store');
+Route::delete('productVariants/{productVariant}', [ProductVariantController::class, 'destroy'])->name('productVariants.destroy');
+
+Route::get('productVariants/{productVariant}/edit', [ProductVariantController::class, 'edit'])->name('productVariants.edit');
+
+Route::put('productVariants/{productVariant}', [ProductVariantController::class, 'update'])->name('productVariants.update');

@@ -12,16 +12,26 @@ class ProductVariant extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'price',
+        'product_id',
+        'color_id'
+    ];
+
+    public function getPriceAttribute($price)
+    {
+        return '$'.$price;
+    }
 
     public function product()
     {
     	return $this->belongsTo(Product::class);
     }
 
-    public function size()
+    public function sizes()
     {
-    	return $this->belongsTo(Size::class);
+    	return $this->belongsToMany(Size::class);
     }
 
     public function color()
