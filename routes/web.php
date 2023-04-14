@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +34,18 @@ Route::resource('subcategories', SubcategoryController::class);
 Route::resource('products', ProductController::class);
 Route::patch('products/{product}/toggleActive', [ProductController::class, 'toggleActive'])->name('products.toggleActive');
 Route::patch('products/{product}/incrementStock', [ProductController::class, 'incrementStock'])->name('products.incrementStock');
+
+
+// Photos
+Route::get('photos/product/{product}', [PhotoController::class, 'create'])->name('photos.create');
+Route::post('photos/store', [PhotoController::class, 'store'])->name('photos.store');
+Route::post('photos/uploadPhotos', [PhotoController::class, 'uploadPhotos'])->name('products.uploadPhotos');
+Route::delete('photos/destroy/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
+Route::patch('photos/makePhotoPrimary/{product}/{photo}', [PhotoController::class, 'makePhotoPrimary'])->name('photos.makePhotoPrimary');
+
+// Files
+Route::get('files/product/{product}', [FileController::class, 'create'])->name('files.create');
+Route::post('files/store', [FileController::class, 'store'])->name('files.store');
+Route::get('files/download/{file}', [FileController::class, 'download'])->name('files.download');
+Route::delete('files/destroy/{file}', [FileController::class, 'destroy'])->name('files.destroy');
+Route::patch('files/rename/{file}', [FileController::class, 'rename'])->name('files.rename');

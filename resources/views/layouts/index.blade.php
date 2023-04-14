@@ -36,6 +36,7 @@
 	</div>
 
     @yield('deleteModal', '')
+    @yield('editModal', '')
 
 	<!-- bundle -->
     <script src="{{ asset('js/vendor.min.js') }}"></script>

@@ -75,9 +75,13 @@
                                     </form>
                                 </td>
                                 <td class="table-action">
+                                    <a href="{{route('photos.create', $product->id)}}" class="action-icon"> <i class="dripicons-photo-group"></i></a>
                                     <a href="{{route('products.show', $product->id)}}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     <a href="{{ route('products.edit', $product->id) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
                                     <a onclick="showModalToConfirmDelete();" data-id="{{$product->id}}" href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                    @if($product->type_product === 'digital')
+                                        <a href="{{route('files.create', $product->id)}}" class="action-icon"> <i class="mdi mdi-file"></i></a>
+                                    @endif
                                 </td>
                             </tr>
                             @empty

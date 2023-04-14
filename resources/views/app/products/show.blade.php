@@ -2,6 +2,12 @@
 
 @section('title', 'Product Details')
 
+@section('styles')
+<style>
+
+</style>
+@endsection
+
 @section('content')
 <!-- Start Content-->
 <div class="container-fluid">
@@ -29,23 +35,45 @@
                     <div class="row">
                         <div class="col-lg-5">
                             <!-- Product image -->
-                            <a href="javascript: void(0);" class="text-center d-block mb-4">
-                                <img src="{{ asset($product->photos->where('is_primary', true)[0]->source) }}" class="img-fluid" style="max-width: 280px;" alt="Product-img">
-                            </a>
-
-                            <div class="d-lg-flex d-none justify-content-center">
-                                <a href="javascript: void(0);">
-                                    <img src="{{ asset('images/products/product-1.jpg') }}" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img">
-                                </a>
-                                <a href="javascript: void(0);" class="ms-2">
-                                    <img src="{{ asset('images/products/product-6.jpg') }}" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img">
-                                </a>
-                                <a href="javascript: void(0);" class="ms-2">
-                                    <img src="{{ asset('images/products/product-3.jpg') }}" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img">
-                                </a>
-                                <a href="javascript: void(0);" class="ms-2">
-                                    <img src="{{ asset('images/products/product-3.jpg') }}" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img">
-                                </a>
+                            <div class="text-center mb-4">
+                                <img src="{{ asset($product->photos->where('is_primary', true)->first()->source) }}" class="img-fluid rounded" style="max-width: 280px;" alt="Product-img">
+                            </div>
+                            <div class="d-flex justify-content-center gap-1">
+                                <div class="row">
+                                    @foreach($product->photos->where('is_primary', false) as $photo)
+                                    <div class="col-6 mb-2">
+                                        <div class="image-container text-center">
+                                            <img class="img-fluid img-thumbnail p-1 image" style="max-width: 120px;" src="{{ asset($photo->source) }}" alt="product image" />
+                                            <div class="d-flex justify-content-center gap-1 mt-1">
+                                                <form method="POST" action="{{route('photos.destroy', $photo->id)}}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-sm btn-danger btn-rounded"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Remove this one">
+                                                <i class="mdi mdi-image-remove" data-bs-custom-class="custom-tooltip"></i>
+                                                </button>
+                                                </form>
+                                                <form method="POST" action="{{route('photos.makePhotoPrimary', ['product' => $product->id, 'photo' => $photo->id])}}">
+                                                    @method('PATCH')
+                                                    @csrf
+                                                    <button class="btn btn-sm btn-info btn-rounded"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Make it as primary">
+                                                <i class="mdi mdi-image-frame"></i>
+                                                </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                    <div class="col-12 my-3 my-lg-0">
+                                        <div class="d-grid">
+                                            <a href="{{ route('photos.create', $product->id) }}" class="btn btn-dark btn-rounded">Add More Photos</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div> <!-- end col -->
                         <div class="col-lg-7">
@@ -123,6 +151,7 @@
                         </div> <!-- end col -->
                     </div> <!-- end row-->
 
+                    @if($product->type_product === 'physical')
                     <div class="table-responsive mt-4">
                         <table class="table table-bordered table-centered mb-0">
                             <thead class="table-light">
@@ -189,7 +218,54 @@
                             </tbody>
                         </table>
                     </div> <!-- end table-responsive-->
-                    
+                    @else
+                        @forelse($product->files as $file)
+                            @if ($loop->first)
+                            <h5 class="mb-2">Attached Files</h5>
+                            <div class="row mx-n1 g-0">
+                            @endif
+                            <div class="col-xxl-3 col-lg-6">
+                                <div class="card m-1 shadow-none border">
+                                    <div class="p-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <div class="avatar-sm">
+                                                    <span class="avatar-title bg-light text-secondary rounded">
+                                                        <i class="mdi mdi-file font-16"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col ps-0">
+                                                <span data-id="{{$file->id}}" class="text-muted fw-bold">{{$file->name}}</span>
+                                                <p class="mb-0 font-13">{{$file->size}}</p>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="btn-group dropdown">
+                                                    <a href="#" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-xs" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <button class="dropdown-item rename" data-id="{{$file->id}}"><i class="mdi mdi-pencil me-2 text-muted vertical-middle"></i>Rename</button>
+                                                        <a class="dropdown-item" href="{{route('files.download', $file->id)}}"><i class="mdi mdi-download me-2 text-muted vertical-middle"></i>Download</a>
+                                                        <form method="POST" action="{{route('files.destroy', $file->id)}}">
+                                                        <button class="dropdown-item"><i class="mdi mdi-delete me-2 text-muted vertical-middle"></i>Remove</button>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end row -->
+                                    </div> <!-- end .p-2-->
+                                </div> <!-- end col -->
+                            </div> <!-- end col-->
+                            @if ($loop->last)
+                                </div> <!-- end row-->
+                            @endif
+                        @empty
+                            <div class="alert alert-info bg-info text-white border-0" role="alert">
+                                No file attached
+                            </div>
+                        @endforelse
+                    @endif
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
         </div> <!-- end col-->
@@ -199,4 +275,72 @@
 </div> <!-- container -->
 
 </div> <!-- content -->
+@endsection
+
+@section('edit_model_id', 'rename-modal')
+@section('edit_model_title', 'Rename File')
+@section('edit_model_body')
+<form id="rename-file" method="POST">
+    <div class="mb-3">
+        <label for="name" class="form-label">Rename</label>
+        <input name="name" type="text" id="name" class="form-control" placeholder="Entre categoty name">
+        <div class="invalid-feedback name"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-primary">Save changes</button>
+    </div>
+    @csrf
+</form>
+@endsection
+
+@include('layouts.editModal')
+
+@section('scripts')
+<script>
+$(function(){
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+    // URL ENDPOINT
+    const url = "{{route('files.rename', '')}}";
+
+    let fileID;
+    $('.rename').click(function () {
+        $('#rename-modal').modal('show');
+        fileID = $(this).data('id');
+    });
+
+    $('#rename-file').submit(function(event){
+        event.preventDefault();
+        // File name field
+        const $name = $('#name');
+        // invalid-feedback for file name field
+        const $feedbackName = $('.invalid-feedback.name');
+
+        const formData = $(this).serializeArray();
+
+        $.ajax({
+            url : `${url}/${fileID}`,
+            type : 'PATCH',
+            data : formData,
+            success: function(response){
+                $('#rename-modal').modal('hide');
+                $.NotificationApp.send("Rename File",response.message,"top-right","success","success")
+                $(`span[data-id=${fileID}]`).text(formData[0].value);
+                $name.val('');
+                $name.removeClass('is-invalid');
+                $feedbackName.html('');
+            },
+            error: function(data){
+                const response = JSON.parse(data.responseText);
+                if(!$name.hasClass('is-invalid')){
+                    $name.addClass('is-invalid');
+                }
+                $feedbackName.html(response.errors.name);
+            }
+        });
+    });
+});
+</script>
 @endsection

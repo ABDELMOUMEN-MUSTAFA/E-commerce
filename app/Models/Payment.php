@@ -21,11 +21,11 @@ class Payment extends Model
 
     public function paymentMethod()
     {
-    	return $this->belongTo(PaymentMethod::class);
+    	return $this->belongsTo(PaymentMethod::class);
     }
 
     public function user()
     {
-    	return $this->belongTo(User::class);
+    	return $this->belongsTo(User::class);
     }
 }

@@ -61,6 +61,7 @@ class ProductController extends Controller
         $revenue = '$'.$product->orders->map(function($order) { 
             return $order->pivot->quantity * $order->pivot->unit_price; 
         })->sum();
+
         return view('app.products.show', compact('product', 'revenue'));
     }
 
@@ -124,8 +125,9 @@ class ProductController extends Controller
     public function incrementStock(Product $product, Request $request)
     {
         $validated = $request->validate([
-            'newStock' => 'required|integer|max:20000000'
+            'newStock' => 'required|integer|max:20000000|gt:0'
         ]);
+
         $product->quantity_in_stock = $product->quantity_in_stock + $validated['newStock'];
         $product->save();
         return redirect()->back()->with('message', '<strong>'.$validated['newStock'].' pieces</strong> Added to stock successfully.');
