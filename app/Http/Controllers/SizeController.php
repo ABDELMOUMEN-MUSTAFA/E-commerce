@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Size;
-use App\Http\Requests\StoreSizeRequest;
-use App\Http\Requests\UpdateSizeRequest;
+use Illuminate\Http\Request;
 
 class SizeController extends Controller
 {
@@ -15,7 +14,7 @@ class SizeController extends Controller
      */
     public function index()
     {
-        //
+        return view('app.products.productVariants.sizes.index', ['sizes' => Size::all()]);
     }
 
     /**
@@ -25,7 +24,7 @@ class SizeController extends Controller
      */
     public function create()
     {
-        //
+        return view('app.products.productVariants.sizes.create');
     }
 
     /**
@@ -34,9 +33,14 @@ class SizeController extends Controller
      * @param  \App\Http\Requests\StoreSizeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSizeRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|alpha:ascii'
+        ]);
+
+        Size::create($request->all());
+        return redirect()->route('sizes.index')->with('message', 'The size <strong>'.$request->name.'</strong> added successfully.');
     }
 
     /**
@@ -47,7 +51,7 @@ class SizeController extends Controller
      */
     public function show(Size $size)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -58,7 +62,7 @@ class SizeController extends Controller
      */
     public function edit(Size $size)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -68,9 +72,15 @@ class SizeController extends Controller
      * @param  \App\Models\Size  $size
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSizeRequest $request, Size $size)
+    public function update(Request $request, Size $size)
     {
-        //
+        $request->validate([
+            'name' => 'required|alpha:ascii'
+        ]);
+
+        $size->name = $request->name;
+        $size->save();
+        return response()->json(['message' => 'The size renamed to <strong>'.$size->name.'</strong> successfully.']);
     }
 
     /**
@@ -81,6 +91,7 @@ class SizeController extends Controller
      */
     public function destroy(Size $size)
     {
-        //
+        $size->delete();
+        return redirect()->route('sizes.index')->with('message', 'The size <strong>'.$size->name.'</strong> deleted successfully.');
     }
 }

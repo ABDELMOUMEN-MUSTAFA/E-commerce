@@ -13,7 +13,7 @@ class UpdateCouponRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class UpdateCouponRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'expiration_date' => 'bail|required|date|after:today',
+            'discount' => 'bail|required|integer|between:1,100',
+            'usage_limit' => 'bail|required|integer|min:1|max:1000000'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'expiration_date.after' => 'your coupon should be valid at least for 1 day'
         ];
     }
 }

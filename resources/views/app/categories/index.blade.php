@@ -51,9 +51,9 @@
 							            	
 							            </td>
 							            <td>
-							            	<form id="toggle-form" method="POST" action="{{route('toggleStatus', $category->id)}}">
-							            	<input type="checkbox" id="status" @if($category->status === true) checked @endif data-switch="none"/>
-											<label for="status" data-on-label="" data-off-label=""></label>
+							            	<form method="POST" action="{{route('categories.toggleStatus', $category->id)}}">
+							            	<input class="status" type="checkbox" id="status-{{$category->id}}" @if($category->status === true) checked @endif data-switch="none"/>
+											<label for="status-{{$category->id}}" data-on-label="" data-off-label=""></label>
 											@csrf
 											@method('PATCH')
 											</form>
@@ -91,8 +91,8 @@
 
 
 
-@section('modalTitle', 'Removing Category')
-@section('modalBody', 'Are you sure ?')
+@section('delete_modal_title', 'Removing Category')
+@section('delete_modal_body', 'Are you sure ?')
 
 @include('layouts.deleteModal')
 
@@ -106,9 +106,9 @@
 			$('#delete-form').attr('action', `${url}/${$(this).data('id')}`);
 		});
 
-		// Toggle Category Status
-		$('#status').click(function(e) {
-    		$('#toggle-form').submit();
+		// because there is no submit button in the form (toggle)
+		$('.status').click(function(e) {
+    		$(this).parent().submit();
 		});
 	});
 </script>

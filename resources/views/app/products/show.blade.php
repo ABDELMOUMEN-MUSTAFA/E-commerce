@@ -174,7 +174,7 @@
                                         <td>{{$variant->name}}</td>
                                         <td>{{$variant->price}}</td>
                                         <td class="text-center">
-                                            <span class="d-inline-block rounded-circle" style="width: 20px;height: 20px;background-color: {{$variant->color->name}}"></span>
+                                            <span class="d-inline-block rounded-circle" style="width: 20px;height: 20px;background-color: {{$variant->color->name}};@if($variant->color->name == 'white') border: 1px solid #555; @endif"></span>
                                         </td>
                                         <td>
                                             @foreach($variant->sizes as $size)

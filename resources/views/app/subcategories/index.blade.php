@@ -70,8 +70,8 @@
 
 
 
-@section('modalTitle', 'Removing Subcategory')
-@section('modalBody', 'Are you sure ?')
+@section('delete_modal_title', 'Removing Subcategory')
+@section('delete_modal_body', 'Are you sure ?')
 
 @include('layouts.deleteModal')
 

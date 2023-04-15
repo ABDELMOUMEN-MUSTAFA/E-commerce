@@ -119,6 +119,7 @@ class ProductController extends Controller
         }else{
             $message = 'Product <strong>'.$product->name.'</strong> is now inactive.';
         }
+
         return redirect()->route('products.index')->with('message', $message);
     }
 
@@ -131,5 +132,11 @@ class ProductController extends Controller
         $product->quantity_in_stock = $product->quantity_in_stock + $validated['newStock'];
         $product->save();
         return redirect()->back()->with('message', '<strong>'.$validated['newStock'].' pieces</strong> Added to stock successfully.');
+    }
+
+    public function search(Request $request){
+        $productName = $request->get('productName');
+        $products = Product::select('id', 'name')->where('name', 'LIKE', '%'.strip_tags($productName).'%')->get();
+        return response()->json($products);
     }
 }

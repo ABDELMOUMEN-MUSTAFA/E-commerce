@@ -16,4 +16,18 @@ class Coupon extends Model
     {
     	return $this->belongsTo(Product::class);
     }
+
+    public function setExpirationDateAttribute($expirationDate){
+    	$this->attributes['expiration_date'] = \Carbon\Carbon::createFromFormat('m/d/Y', $expirationDate)->format('Y-m-d');
+    }
+
+    public function setCodeAttribute($code)
+    {
+    	$this->attributes['code'] = strtoupper($code);
+    }
+
+    protected $casts = [
+        'expiration_date' => 'date',
+        'is_active' => 'boolean'
+    ];
 }

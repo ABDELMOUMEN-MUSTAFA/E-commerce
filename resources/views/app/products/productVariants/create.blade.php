@@ -26,8 +26,8 @@
                     <div class="row mb-2">
                         <form action="{{ route('productVariants.store', $product->id) }}" method="POST">
                         	<div class="mb-3">
-							    <label for="name" class="form-label">You are about to add variantion for the product below</label>
-							    <input value="{{ $product->name }}" type="text" id="name" class="form-control" />
+							    <label for="product-name" class="form-label">You are about to add variantion for the product below</label>
+							    <input value="{{ $product->name }}" type="text" id="product-name" class="form-control" readonly />
 							</div>
 							<div class="mb-3">
 							    <label for="name" class="form-label">Variant Name</label>
@@ -44,28 +44,36 @@
 							    @enderror
 							</div>
 							<div class="mb-3">
-								<label for="product" class="form-label d-block @error('color_id') text-danger @enderror">Colors</label>
+								<label for="product-color" class="form-label d-block @error('color_id') text-danger @enderror">Colors</label>
 						    	<div class="boxed-check-group boxed-check-default">
-								    @foreach($colors as $color)
+								    @forelse($colors as $color)
 						    		<label class="boxed-check boxed-check-inline">
 								        <input data-color="{{$color->name}}" id="color-{{$color->name}}"  value="{{$color->id}}" class="boxed-check-input" type="radio" name="color_id">						      
 								        <div class="boxed-check-label">{{ucfirst($color->name)}}</div>
 								    </label>
-							    	@endforeach
+							    	@empty
+							    		<div class="alert alert-warning" role="alert">
+									    <i class="dripicons-warning me-2"></i> Please add colors first <a href=""><strong>Click Here</strong></a>
+										</div>
+							    	@endforelse
 							    	@error('color_id')
 						    			<small class="text-danger d-block mt-1">{{ $message }}</small>
 						    		@enderror
 								</div>
 							</div>	
 							<div class="mb-3">
-								<label for="product" class="form-label d-block @error('sizes') text-danger @enderror @error('sizes.*') text-danger @enderror">Sizes</label>
+								<label for="product-sizes" class="form-label d-block @error('sizes') text-danger @enderror @error('sizes.*') text-danger @enderror">Sizes</label>
 								<div class="boxed-check-group boxed-check-default">
-								    @foreach($sizes as $size)
+								    @forelse($sizes as $size)
 						    		<label class="boxed-check boxed-check-inline">
 								        <input id="size-{{$size->name}}"  value="{{$size->id}}" class="boxed-check-input" type="checkbox" name="sizes[]">
 								        <div class="boxed-check-label">{{ucfirst($size->name)}}</div>
 								    </label>
-							    	@endforeach
+								    @empty
+								    <div class="alert alert-warning" role="alert">
+									    <i class="dripicons-warning me-2"></i> Please add sizes first <a href=""><strong>Click Here</strong></a>
+									</div>
+							    	@endforelse
 							    	@error('sizes')
 							    		<small class="text-danger d-block mt-1">{{ $message }}</small>
 							    	@enderror

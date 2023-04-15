@@ -46,7 +46,7 @@
                             @forelse($products as $product)
                             <tr>
                                 <td>
-                                    <img src="{{$product->photos->where('is_primary', true)[0]->source }}" alt="product image" class="rounded me-3" height="48">
+                                    <img src="{{$product->photos->where('is_primary', true)->first()->source }}" alt="product image" class="rounded me-3" height="48">
                                     <p class="m-0 d-inline-block align-middle font-16">
                                         <a href="{{ route('products.show', $product->id) }}" class="text-body">{{ $product->name }}</a>
                                         <br>
@@ -59,7 +59,13 @@
                                         <!-- End 3ndak Tnsa -->
                                     </p>
                                 </td>
-                                <td>{{ $product->category->name }}</td>
+                                <td>
+                                    @if($product->category_id !== null)
+                                        {{ $product->category->name }}
+                                    @else
+                                        <h6 class="m-0"><span class="badge bg-danger">None</span></h6>
+                                    @endif
+                                </td>
                                 <td>{{ $product->created_at->diffForHumans() }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td>{{ $product->quantity_in_stock }}</td>
@@ -67,9 +73,9 @@
                                     <span class="badge bg-primary rounded-pill">{{ ucfirst($product->type_product) }}</span>
                                 </td>
                                 <td>
-                                    <form id="toggle-form" method="POST" action="{{route('products.toggleActive', $product->id)}}">
-                                            <input type="checkbox" id="status" @if($product->is_active === true) checked @endif data-switch="none"/>
-                                            <label for="status" data-on-label="" data-off-label=""></label>
+                                    <form method="POST" action="{{route('products.toggleActive', $product->id)}}">
+                                            <input class="status" type="checkbox" id="status-{{$product->id}}" @if($product->is_active === true) checked @endif data-switch="none"/>
+                                            <label for="status-{{$product->id}}" data-on-label="" data-off-label=""></label>
                                             @csrf
                                             @method('PATCH')
                                     </form>
@@ -78,10 +84,11 @@
                                     <a href="{{route('photos.create', $product->id)}}" class="action-icon"> <i class="dripicons-photo-group"></i></a>
                                     <a href="{{route('products.show', $product->id)}}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                     <a href="{{ route('products.edit', $product->id) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                    <a onclick="showModalToConfirmDelete();" data-id="{{$product->id}}" href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                    <a onclick="showModalToConfirmDelete({{$product->id}});" href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                     @if($product->type_product === 'digital')
                                         <a href="{{route('files.create', $product->id)}}" class="action-icon"> <i class="mdi mdi-file"></i></a>
                                     @endif
+                                    <a href="{{route('productVariants.create', $product->id)}}" class="action-icon"><i class="mdi mdi-selection-multiple"></i></a>
                                 </td>
                             </tr>
                             @empty
@@ -101,28 +108,28 @@
 </div> <!-- content -->
 @endsection
 
-@section('modalTitle', 'Removing Product')
-@section('modalBody', 'Are you sure ?')
+@section('delete_modal_title', 'Removing Product')
+@section('delete_modal_body', 'Are you sure ?')
 
 @include('layouts.deleteModal')
 
 
 @section('scripts')
 <script>
-    $('#produts').DataTable();
-
+    const url = '{{route("products.index")}}';
     // Event Handler Deletion
-    function showModalToConfirmDelete() {
-        $('#delete-modal').modal('show')
-        $('#delete-form').attr('action', `${url}/${$(this).data('id')}`);
+    function showModalToConfirmDelete(id) {
+        $('#delete-modal').modal('show');
+        $('#delete-form').attr('action', `${url}/${id}`);
     }
 
+    // because there is no submit button in the form (toggle)
     $(function () {
-        const url = '{{route("products.index")}}';
+        $('#produts').DataTable();
         
         // Toggle Product Status
-        $('#status').click(function(e) {
-            $('#toggle-form').submit();
+        $('.status').click(function(e) {
+            $(this).parent().submit();
         });
     });
 </script>

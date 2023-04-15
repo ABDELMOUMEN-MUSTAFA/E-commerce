@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Color;
-use App\Http\Requests\StoreColorRequest;
-use App\Http\Requests\UpdateColorRequest;
+use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
@@ -15,7 +14,7 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        return view('app.products.productVariants.colors.index', ['colors' => Color::all()]);
     }
 
     /**
@@ -25,18 +24,23 @@ class ColorController extends Controller
      */
     public function create()
     {
-        //
+        return view('app.products.productVariants.colors.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreColorRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreColorRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|alpha:ascii'
+        ]);
+
+        Color::create($request->all());
+        return redirect()->route('colors.index')->with('message', 'The color <strong>'.$request->name.'</strong> added successfully.');
     }
 
     /**
@@ -47,7 +51,7 @@ class ColorController extends Controller
      */
     public function show(Color $color)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -58,19 +62,25 @@ class ColorController extends Controller
      */
     public function edit(Color $color)
     {
-        //
+        abort(404);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateColorRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @param  \App\Models\Color  $color
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateColorRequest $request, Color $color)
+    public function update(Request $request, Color $color)
     {
-        //
+         $request->validate([
+            'name' => 'required|alpha:ascii'
+        ]);
+
+        $color->name = $request->name;
+        $color->save();
+        return response()->json(['message' => 'The color renamed to <strong>'.$color->name.'</strong> successfully.']);
     }
 
     /**
@@ -81,6 +91,7 @@ class ColorController extends Controller
      */
     public function destroy(Color $color)
     {
-        //
+        $color->delete();
+        return redirect()->route('colors.index')->with('message', 'The color <strong>'.$color->name.'</strong> deleted successfully.');
     }
 }

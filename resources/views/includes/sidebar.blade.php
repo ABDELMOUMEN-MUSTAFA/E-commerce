@@ -78,7 +78,41 @@
                     </ul>
                 </div>
             </li>
-     
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarVariants" aria-expanded="false" aria-controls="sidebarVariants" class="side-nav-link">
+                    <i class="uil-store"></i>
+                    <span>Manage Variants</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarVariants">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{route('colors.index')}}">All Colors</a>
+                        </li>
+                        <li>
+                            <a href="{{route('sizes.index')}}">All Sizes</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarCoupons" aria-expanded="false" aria-controls="sidebarCoupons" class="side-nav-link">
+                    <i class="uil-store"></i>
+                    <span>Manage Coupons</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarCoupons">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{route('coupons.index')}}">All Coupons</a>
+                        </li>
+                        <li>
+                            <a href="{{route('coupons.create')}}">Generate Coupon</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             <li class="side-nav-item">
                 <a href="apps-social-feed.html" class="side-nav-link">
                     <i class="uil-rss"></i>
