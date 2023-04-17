@@ -70,7 +70,7 @@
                                     @endforeach
                                     <div class="col-12 my-3 my-lg-0">
                                         <div class="d-grid">
-                                            <a href="{{ route('photos.create', $product->id) }}" class="btn btn-dark btn-rounded">Add More Photos</a>
+                                            <a href="{{ route('photos.create', $product->id) }}" class="btn btn-dark btn-rounded"><i class="mdi mdi-image-multiple"></i> Add More Photos</a>
                                         </div>
                                     </div>
                                 </div>
@@ -99,9 +99,14 @@
                                 </div>
 
                                 <!-- Product description -->
-                                <div class="mt-4">
-                                    <h6 class="font-14">Retail Price:</h6>
-                                    <h3> {{ $product->price }}</h3>
+                                <div class="mt-4 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="font-14">Retail Price:</h6>
+                                        <h3> {{ $product->price }}</h3>
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-dark" href="{{route('promotions.create', $product->id)}}"><i class="mdi mdi-magnet"></i> Add Promotion</a>
+                                    </div>
                                 </div>
 
                                 <!-- Quantity -->
@@ -152,9 +157,9 @@
                     </div> <!-- end row-->
                     <hr />
                     @if($product->type_product === 'physical')
-                        <div class="mb-2 d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
                             <h5>Product Variants</h5>
-                            <a href="{{route('productVariants.create', $product->id)}}" class="btn btn-dark">Add Variants</a>
+                            <a href="{{route('productVariants.create', $product->id)}}" class="btn btn-dark"><i class="mdi mdi-selection-multiple"></i> Add Variants</a>
                         </div>
                         @if(count($product->productVariants) > 0)
                         <div class="table-responsive">
@@ -200,6 +205,72 @@
                                 No variants for this product
                             </div>
                         @endif
+                        <hr />
+                        <div class="d-flex justify-content-between mb-2">
+                            <h5>Product Promotions</h5>
+                            @if($product->promotions->min('end_date') < now())
+                                <form method="POST" action="{{route('promotions.clearExpired', $product->id)}}">
+                                    <button class="btn btn-link text-dark fw-bolder"><small>Clear all expired</small></button>
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            @endif
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-centered mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Discount</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($product->promotions->sortByDesc('end_date') as $promotion)
+                                        @php($maxEndDate = $product->promotions->max('end_date'))
+                                        <tr class="@if($promotion->end_date >= now() && $promotion->end_date <= $maxEndDate) bg-success-lighten @endif">
+                                            <td>{{$promotion->discount}}%</td>
+                                            <td>{{$promotion->start_date->format('d/m/Y')}}</td>
+                                            <td>{{$promotion->end_date->format('d/m/Y')}}</td>
+                                            <td>
+                                                @if($promotion->end_date >= now())
+                                                    @if($promotion->end_date <= $maxEndDate)
+                                                        <!-- Running -->
+                                                        <span class="badge badge-success-lighten">Running</span>
+                                                    @else
+                                                        <!-- Pending -->
+                                                        <span class="badge badge-warning-lighten">Pending</span>
+                                                    @endif
+                                                @else
+                                                    <!--  Expired -->
+                                                    <span class="badge badge-danger-lighten">Expired</span>
+                                                @endif
+                                            </td>
+                                            <td class="d-flex justify-content-center">
+
+                                                <div class="btn-group dropdown">
+                                                    <a href="#" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-xs" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a href="{{route('promotions.edit', $promotion->id)}}" class="dropdown-item"><i class="mdi mdi-pencil me-2 text-muted vertical-middle"></i>Edit</a>
+                                                        <form method="POST" action="{{route('promotions.destroy', $promotion->id)}}">
+                                                            <button class="dropdown-item"><i class="mdi mdi-delete me-2 text-muted vertical-middle"></i>Remove</button>
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <div class="alert alert-info bg-info text-white border-0" role="alert">
+                                            No promotions
+                                        </div>
+                                    @endforelse
+                                    </tbody>
+                            </table>
+                        </div> <!-- end table-responsive-->
                     @else
                         @forelse($product->files as $file)
                             @if ($loop->first)

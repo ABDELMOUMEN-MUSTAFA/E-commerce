@@ -16,4 +16,19 @@ class Promotion extends Model
     {
     	return $this->belongsTo(Product::class);
     }
+
+    public function setStartDateAttribute($startDate)
+    {
+    	$this->attributes['start_date'] = \Carbon\Carbon::createFromFormat('m/d/Y', $startDate)->format('Y-m-d');
+    }
+
+    public function setEndDateAttribute($endDate)
+    {
+    	$this->attributes['end_date'] = \Carbon\Carbon::createFromFormat('m/d/Y', $endDate)->format('Y-m-d');
+    }
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date'
+    ];
 }

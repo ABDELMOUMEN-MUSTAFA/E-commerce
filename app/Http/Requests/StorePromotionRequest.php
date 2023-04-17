@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Product;
 
 class StorePromotionRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StorePromotionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +24,29 @@ class StorePromotionRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            //
+            'discount' => 'required|integer|min:1|max:100',
+            'start_date' => [
+                'required', 
+                'date', 
+                'after:yesterday',
+                function($attribute, $value, $fail) {
+                    $inputStartDate = new \Carbon\Carbon($value);
+                    $lastPromotionEndDate = $this->route('product')->promotions->max('end_date');
+
+                    if($lastPromotionEndDate > $inputStartDate){
+                        $fail("There is already promotion running in that date, please choose a day after {$lastPromotionEndDate->format('m/d/Y')}");
+                    }
+                }
+            ],
+            'end_date' => [
+                'bail',
+                'required',
+                'date',
+                'after:start_date'
+            ],
+
         ];
     }
 }

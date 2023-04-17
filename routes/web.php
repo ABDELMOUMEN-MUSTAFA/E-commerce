@@ -74,4 +74,9 @@ Route::resource('coupons', CouponController::class);
 Route::patch('coupons/{coupon}/toggleStatus', [CouponController::class, 'toggleStatus'])->name('coupons.toggleStatus');
 
 // Promotions
-Route::resource('promotions', PromotionController::class);
+Route::get('promotions/{product}', [PromotionController::class, 'create'])->name('promotions.create');
+Route::post('promotions/{product}', [PromotionController::class, 'store'])->name('promotions.store');
+Route::delete('promotions/{promotion}', [PromotionController::class, 'destroy'])->name('promotions.destroy');
+Route::get('promotions/{promotion}/edit', [PromotionController::class, 'edit'])->name('promotions.edit');
+Route::put('promotions/{promotion}', [PromotionController::class, 'update'])->name('promotions.update');
+Route::delete('promotions/{product}/clearExpired', [PromotionController::class, 'clearExpired'])->name('promotions.clearExpired');
