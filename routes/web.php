@@ -14,7 +14,9 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\LockScreen;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Str;
+use App\Http\Controllers\CountryController;
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,13 +30,13 @@ use Illuminate\Support\Str;
 
 // Dashboard
 Route::get('/', function () {
-    return view('auth.login');
+	return view('test');
 })->name('index');
 
 Auth::routes(['verify' => true]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
-	Route::group(['middleware' => 'is_admin', 'prefix' => 'admin'], function(){
+	Route::group(['middleware' => 'is_active_admin', 'prefix' => 'admin'], function(){
 		// Categories
 		Route::resource('categories', CategoryController::class);
 		Route::patch('categories/{category}/toggleStatus', [CategoryController::class, 'toggleStatus'])->name('categories.toggleStatus');
@@ -43,7 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::resource('subcategories', SubcategoryController::class);
 
 		// Products
-		Route::resource('products', ProductController::class)->middleware('is_admin');
+		Route::resource('products', ProductController::class);
 		Route::patch('products/{product}/toggleActive', [ProductController::class, 'toggleActive'])->name('products.toggleActive');
 		Route::patch('products/{product}/incrementStock', [ProductController::class, 'incrementStock'])->name('products.incrementStock');
 		Route::get('products/search/name', [ProductController::class, 'search'])->name('products.search');
@@ -87,12 +89,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::put('promotions/{promotion}', [PromotionController::class, 'update'])->name('promotions.update');
 		Route::delete('promotions/{product}/clearExpired', [PromotionController::class, 'clearExpired'])->name('promotions.clearExpired');
 
+		// Dashboard
 		Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
+		// Users
 		Route::get('settings', [UserController::class, 'editSettings'])->name('settings.edit');
 		Route::put('settings', [UserController::class, 'updateSettings'])->name('settings.update');
+		Route::resource('users', UserController::class);
+		Route::patch('users/{user}/toggleActive', [UserController::class, 'toggleActive'])->name('users.toggleActive');
 
+		// Countries
+		Route::resource('countries', CountryController::class)->except(['edit', 'show']);
 	});
+
+	// Auth (account suspended)
+	Route::view('account-suspended', 'auth.banned')->name('suspended');
 
 });
 
@@ -101,6 +112,7 @@ Route::get('/lock-screen', [LockScreen::class, 'lock'])->name('screen.lock');
 Route::post('/unlock-screen', [LockScreen::class, 'unlock'])->name('screen.unlock');
 
 
+// Generate New CSRF
 Route::get('/refresh-csrf-token', function() {
     return csrf_token();
 });

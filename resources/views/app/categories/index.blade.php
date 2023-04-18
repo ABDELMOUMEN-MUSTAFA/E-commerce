@@ -52,10 +52,10 @@
 							            </td>
 							            <td>
 							            	<form method="POST" action="{{route('categories.toggleStatus', $category->id)}}">
-							            	<input class="status" type="checkbox" id="status-{{$category->id}}" @if($category->status === true) checked @endif data-switch="none"/>
-											<label for="status-{{$category->id}}" data-on-label="" data-off-label=""></label>
-											@csrf
-											@method('PATCH')
+								            	<input class="status" type="checkbox" id="status-{{$category->id}}" @if($category->status === true) checked @endif data-switch="none"/>
+												<label for="status-{{$category->id}}" data-on-label="" data-off-label=""></label>
+												@csrf
+												@method('PATCH')
 											</form>
 							            </td>
 							            <td>

@@ -55,8 +55,9 @@ class RegisterController extends Controller
             'phone_number' => ['required', 'max:25', 'regex:/^\([0-9]{3}\)\s[0-9]{9}$/'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
+            'country_id' => ['required', 'integer', 'exists:countries,id'],
             'agreement' => 'required'
-        ]);
+        ], ['country_id.required' => 'The country is required.']);
     }
 
     /**
@@ -74,7 +75,13 @@ class RegisterController extends Controller
             'ip_address' => request()->ip(),
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'country_id' => $data['country_id'],
             'avatar' => 'storage/images/avatars/default-avatar.png'
         ]);
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register', ['countries' => \App\Models\Country::all()]);
     }
 }

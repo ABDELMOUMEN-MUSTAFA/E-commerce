@@ -28,7 +28,7 @@
 
             <li class="side-nav-title side-nav-item">Analytics</li>
 
-             <li class="side-nav-item">
+            <li class="side-nav-item">
                 <a href="{{route('home')}}" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span>Dashboard</span>
@@ -118,6 +118,26 @@
                         </li>
                         <li>
                             <a href="{{route('coupons.create')}}">Generate Coupon</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarUsers" aria-expanded="false" aria-controls="sidebarUsers" class="side-nav-link">
+                    <i class="uil-store"></i>
+                    <span>Manage Users</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarUsers">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{route('users.index')}}">All Users</a>
+                        </li>
+                        <li>
+                            <a href="{{route('users.create')}}">Add Admin</a>
+                        </li>
+                        <li>
+                            <a href="{{route('countries.index')}}">All Countries</a>
                         </li>
                     </ul>
                 </div>

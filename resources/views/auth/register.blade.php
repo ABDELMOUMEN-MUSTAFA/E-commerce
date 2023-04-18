@@ -41,6 +41,21 @@
                             </span>
                         @enderror
                     </div>
+                    @if(count($countries) > 0)
+                        <div class="mb-3">
+                            <label for="country" class="form-label">Country</label>
+                            <select id="country" class="form-select @error('country_id') is-invalid @enderror" name="country_id">
+                                @foreach($countries as $country_id)
+                                    <option value="{{$country_id->id}}">{{$country_id->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('country_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    @endif
 
                     <div class="mb-3">
                         <label for="phone_number" class="form-label">Phone Number</label>
@@ -89,7 +104,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 text-center">
+                    <div class="mb-3 text-center d-grid">
                         <button class="btn btn-primary" type="submit"> Sign Up </button>
                     </div>
                     @csrf

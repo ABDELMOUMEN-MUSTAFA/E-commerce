@@ -10,7 +10,8 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Conversation;
 use App\Models\ChatMessage;
 use App\Models\ShoppingCart;
-use App\Models\Address;
+use App\Models\Country;
+use App\Models\Order;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -45,8 +46,19 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function address()
     {
-        $this->hasOne(Address::class);
+        return $this->hasOne(Address::class);
     }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -65,6 +77,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_admin' => 'boolean'
+        'is_admin' => 'boolean',
+        'is_active' => 'boolean'
     ];
 }

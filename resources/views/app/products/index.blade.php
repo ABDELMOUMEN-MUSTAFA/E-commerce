@@ -46,7 +46,7 @@
                             @forelse($products as $product)
                             <tr>
                                 <td>
-                                    <img src="{{$product->photos->where('is_primary', true)->first()->source }}" alt="product image" class="rounded me-3" height="48">
+                                    <img src="{{asset($product->photos->where('is_primary', true)->first()->source)}}" alt="product image" class="rounded me-3" height="48">
                                     <p class="m-0 d-inline-block align-middle font-16">
                                         <a href="{{ route('products.show', $product->id) }}" class="text-body">{{ $product->name }}</a>
                                         <br>

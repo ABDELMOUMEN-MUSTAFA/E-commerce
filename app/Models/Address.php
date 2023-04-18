@@ -13,11 +13,6 @@ class Address extends Model
 
     protected $guarded = [];
 
-    public function country()
-    {
-    	$this->belognsTo(Country::class);
-    }
-
     public function user()
     {
     	$this->belognsTo(User::class);

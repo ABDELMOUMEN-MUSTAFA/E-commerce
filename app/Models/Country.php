@@ -4,16 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\models\Address;
+use App\models\User;
 
 class Country extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+    public $timestamps = false;
 
-    public function Addresses()
+    public function users()
     {
-    	return $this->hasMany(Address::class);
+    	return $this->hasMany(User::class);
     }
 }

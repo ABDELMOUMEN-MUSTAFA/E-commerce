@@ -30,7 +30,7 @@
     <div class="wrapper">
        @include('includes.sidebar')
         <div class="content-page">
-         	<div class="content">
+         	<!-- <div class="content"> -->
          		<!-- Topbar Start -->
             	@include('includes.navbar') 
             	<!-- Topbar End -->
@@ -38,7 +38,7 @@
             	<!-- Content Start -->
             	@yield('content')
             	<!-- Content End -->
-            </div>
+            <!-- </div> -->
         </div>
 	</div>
 

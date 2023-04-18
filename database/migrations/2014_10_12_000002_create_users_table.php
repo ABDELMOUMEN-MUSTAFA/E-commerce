@@ -22,11 +22,13 @@ class CreateUsersTable extends Migration
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_active')->default(true);
             $table->string('ip_address', 50)->nullable();
+            $table->unsignedBigInteger('country_id')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('country_id')->references('id')->on('countries')->nullOnDelete();
         });
     }
 
