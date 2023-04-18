@@ -25,6 +25,16 @@
 
         <!--- Sidemenu -->
         <ul class="side-nav">
+
+            <li class="side-nav-title side-nav-item">Analytics</li>
+
+             <li class="side-nav-item">
+                <a href="{{route('home')}}" class="side-nav-link">
+                    <i class="uil-home-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
             <li class="side-nav-title side-nav-item">Management</li>
 
             <li class="side-nav-item">
@@ -111,13 +121,6 @@
                         </li>
                     </ul>
                 </div>
-            </li>
-
-            <li class="side-nav-item">
-                <a href="apps-social-feed.html" class="side-nav-link">
-                    <i class="uil-rss"></i>
-                    <span> Dashboard </span>
-                </a>
             </li>
         </ul>
         <!-- End Sidebar -->

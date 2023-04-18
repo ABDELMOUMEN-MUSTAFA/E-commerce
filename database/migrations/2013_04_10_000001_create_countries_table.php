@@ -17,7 +17,6 @@ class CreateCountriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('flag_icon');
-            $table->timestamps();
         });
     }
 

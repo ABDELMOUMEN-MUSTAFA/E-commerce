@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\models\User;
+use App\models\Address;
 
 class Country extends Model
 {
@@ -12,8 +12,8 @@ class Country extends Model
 
     protected $guarded = [];
 
-    public function user()
+    public function Addresses()
     {
-    	return $this->belongsTo(User::class);
+    	return $this->hasMany(Address::class);
     }
 }

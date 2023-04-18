@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\models\Conversation;
-use App\models\ChatMessage;
-use App\models\ShoppingCart;
+use App\Models\Conversation;
+use App\Models\ChatMessage;
+use App\Models\ShoppingCart;
+use App\Models\Address;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -42,6 +43,11 @@ class User extends Authenticatable
         return $this->hasOne(ShoppingCart::class);
     }
 
+    public function address()
+    {
+        $this->hasOne(Address::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -59,5 +65,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean'
     ];
 }
