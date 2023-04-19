@@ -25,13 +25,15 @@ class Order extends Model
     	return $this->belongsTo(OrderStatus::class);
     }
 
-    public function shipper()
-    {
-    	return $this->belongsTo(Shipper::class);
-    }
-
     public function products()
     {
     	return $this->belongsToMany(Product::class)->withPivot(['quantity', 'unit_price'])->withTimestamps();
     }
+
+    protected $casts = [
+        'shipped_at' => 'datetime',
+        'delivered_at' => 'datetime',
+        'processed_at' => 'datetime',
+        'cancelled_at' => 'datetime'
+    ];
 }

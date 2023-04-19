@@ -389,7 +389,7 @@ $(function(){
         const formData = $(this).serializeArray();
 
         $.ajax({
-            renameFileURL : `${renameFileURL}/${fileID}`,
+            url : `${renameFileURL}/${fileID}`,
             type : 'PATCH',
             data : formData,
             success: function(response){

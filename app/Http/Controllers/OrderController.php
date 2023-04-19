@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -15,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('app.products.orders.index', ['orders' => Order::all(), 'orderStatuses' => OrderStatus::all()]);
     }
 
     /**
@@ -47,7 +49,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('app.products.orders.show', ['order' => $order, 'orderStatuses' => OrderStatus::all()]);
     }
 
     /**
@@ -82,5 +84,33 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function changeOrderStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'status_id' => 'bail|required|integer|gt:1|exists:order_statuses,id'
+        ]);
+
+        switch ($request->input('status_id')) {
+            case 2:
+                $order->processed_at = now();
+                break;
+            case 3:
+                $order->shipped_at = now();
+                break;
+            case 4:
+                $order->delivered_at = now();
+                break;
+            default:
+                $order->cancelled_at = now();
+                break;
+        }
+
+        $order->order_status_id = $request->input('status_id');
+        $order->save();
+        return response()->json([
+            'message' => "The order is changed to ".$order->orderStatus->status." successfully."
+        ]);
     }
 }

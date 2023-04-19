@@ -142,6 +142,20 @@
                     </ul>
                 </div>
             </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarOrders" aria-expanded="false" aria-controls="sidebarOrders" class="side-nav-link">
+                    <i class="uil-store"></i>
+                    <span>Manage Orders</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarOrders">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{route('orders.index')}}">All Orders</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
         <!-- End Sidebar -->
     </div>

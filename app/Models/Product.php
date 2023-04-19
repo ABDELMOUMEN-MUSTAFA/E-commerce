@@ -30,8 +30,6 @@ class Product extends Model
     {
         return '$'.$price;
     }
-
-    // $orders->map(function($order) { return $order->products->map(function($product){ return $product->pivot->product_id; });  })
     
     public function orders()
     {

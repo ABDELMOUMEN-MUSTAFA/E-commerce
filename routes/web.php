@@ -15,6 +15,7 @@ use App\Http\Controllers\LockScreen;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\OrderController;
 use App\Models\User;
 
 /*
@@ -100,6 +101,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 		// Countries
 		Route::resource('countries', CountryController::class)->except(['edit', 'show']);
+
+		// Orders
+		Route::resource('orders', OrderController::class)->except(['create', 'store', 'edit']);
+		Route::patch('orders/{order}/changeOrderStatus', [OrderController::class, 'changeOrderStatus'])->name('orders.changeOrderStatus');
 	});
 
 	// Auth (account suspended)

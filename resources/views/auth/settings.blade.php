@@ -96,17 +96,16 @@
                                 <div class="mb-3">
                                     <label for="current_password" class="form-label">Current Password</label>
                                     <div class="input-group input-group-merge">
-                                    <input id="current_password" type="password" class="form-control @error('current_password') is-invalid @enderror" name="current_password" autocomplete="current-password">
-                                    <div class="input-group-text" data-password="false">
-                                        <span class="password-eye"></span>
+                                        <input id="current_password" type="password" class="form-control @error('current_password') is-invalid @enderror" placeholder="Entre current passowrd" name="current_password" autocomplete="current-password">
+                                        <div class="input-group-text" data-password="false">
+                                            <span class="password-eye"></span>
+                                        </div>
+                                        @error('current_password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    @error('current_password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                    <span class="form-text text-muted"><small>If you forgot password please <a href="{{ route('password.request') }}">click</a> here.</small></span>
                                 </div>
                             </div>
                         </div>

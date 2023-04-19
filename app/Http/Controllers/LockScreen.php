@@ -16,6 +16,7 @@ class LockScreen extends Controller
             Auth::logout();
             session(['name' => $user->first_name]);
             session(['email' => $user->email]);
+            session(['avatar' => $user->avatar]);
         }
         
         return view('auth.lock');
@@ -39,6 +40,7 @@ class LockScreen extends Controller
         // Successfuly Authenticated
         Session::forget('name');
         Session::forget('email');
+        Session::forget('avatar');
         return redirect()->route('home');
     }
 }

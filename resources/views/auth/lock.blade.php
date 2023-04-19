@@ -16,7 +16,7 @@
             <div class="card-body p-4">
                 
                 <div class="text-center w-75 m-auto">
-                    <img src="{{ asset('images/users/avatar-1.png') }}" height="64" alt="user-image" class="rounded-circle shadow">
+                    <img src="{{ asset(session('avatar')) }}" height="64" alt="user-image" class="rounded-circle shadow">
                     <h4 class="text-dark-50 text-center mt-3 fw-bold">Hi ! {{session('name')}} </h4>
                     <p class="text-muted mb-4">Enter your password to access the admin.</p>
                 </div>
