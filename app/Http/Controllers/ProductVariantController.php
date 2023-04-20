@@ -17,7 +17,7 @@ class ProductVariantController extends Controller
         $sizes = Size::all();
         $colors = Color::all();
 
-        return view('app.products.productVariants.create', compact('product', 'sizes', 'colors'));
+        return view('app.admin.products.productVariants.create', compact('product', 'sizes', 'colors'));
     }
 
     public function store(StoreProductVariantRequest $request, Product $product)
@@ -34,7 +34,7 @@ class ProductVariantController extends Controller
         $sizes = Size::all();
         $colors = Color::all();
 
-        return view('app.products.productVariants.edit', compact('productVariant', 'sizes', 'colors'));
+        return view('app.admin.products.productVariants.edit', compact('productVariant', 'sizes', 'colors'));
     }
 
     public function update(UpdateProductVariantRequest $request, ProductVariant $productVariant)

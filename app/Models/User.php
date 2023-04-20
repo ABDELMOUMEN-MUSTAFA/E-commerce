@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Conversation;
 use App\Models\ChatMessage;
-use App\Models\ShoppingCart;
+use App\Models\Product;
 use App\Models\Country;
 use App\Models\Order;
 
@@ -39,9 +39,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(ChatMessage::class, 'recipient_id');
     }
 
-    public function shoppingCart()
+    public function products()
     {
-        return $this->hasOne(ShoppingCart::class);
+        return $this->belongsToMany(Product::class)->withPivot(['quantity'])->withTimestamps();
     }
 
     public function address()

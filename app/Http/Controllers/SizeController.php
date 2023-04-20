@@ -14,7 +14,7 @@ class SizeController extends Controller
      */
     public function index()
     {
-        return view('app.products.productVariants.sizes.index', ['sizes' => Size::all()]);
+        return view('app.admin.products.productVariants.sizes.index', ['sizes' => Size::all()]);
     }
 
     /**
@@ -24,7 +24,7 @@ class SizeController extends Controller
      */
     public function create()
     {
-        return view('app.products.productVariants.sizes.create');
+        return view('app.admin.products.productVariants.sizes.create');
     }
 
     /**

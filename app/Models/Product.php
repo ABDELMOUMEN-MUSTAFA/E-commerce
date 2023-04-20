@@ -13,6 +13,7 @@ use App\models\Promotion;
 use App\models\Coupon;
 use App\models\File;
 use App\models\Review;
+use App\models\User;
 
 class Product extends Model
 {
@@ -36,9 +37,9 @@ class Product extends Model
     	return $this->belongsToMany(Order::class)->withPivot(['quantity', 'unit_price'])->withTimestamps();
     }
 
-    public function shoppingCarts()
+    public function users()
     {
-    	return $this->hasMany(ShoppingCart::class);
+    	return $this->belongsToMany(User::class)->withPivot(['quantity'])->withTimestamps();
     }
 
     public function category()

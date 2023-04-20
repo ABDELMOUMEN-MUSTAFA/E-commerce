@@ -17,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('app.products.orders.index', ['orders' => Order::all(), 'orderStatuses' => OrderStatus::all()]);
+        return view('app.admin.products.orders.index', ['orders' => Order::all(), 'orderStatuses' => OrderStatus::all()]);
     }
 
     /**
@@ -49,7 +49,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('app.products.orders.show', ['order' => $order, 'orderStatuses' => OrderStatus::all()]);
+        return view('app.admin.products.orders.show', ['order' => $order, 'orderStatuses' => OrderStatus::all()]);
     }
 
     /**

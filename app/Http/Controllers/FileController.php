@@ -17,7 +17,7 @@ class FileController extends Controller
      */
     public function create(Product $product)
     {
-        return view('app.products.files.create', compact('product'));
+        return view('app.admin.products.files.create', compact('product'));
     }
 
     /**

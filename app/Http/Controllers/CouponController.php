@@ -16,7 +16,7 @@ class CouponController extends Controller
      */
     public function index()
     {
-        return view('app.products.coupons.index', ['coupons' => Coupon::all()]);
+        return view('app.admin.products.coupons.index', ['coupons' => Coupon::all()]);
     }
 
     /**
@@ -26,7 +26,7 @@ class CouponController extends Controller
      */
     public function create()
     {
-        return view('app.products.coupons.create');
+        return view('app.admin.products.coupons.create');
     }
 
     /**
@@ -64,7 +64,7 @@ class CouponController extends Controller
      */
     public function edit(Coupon $coupon)
     {
-        return view('app.products.coupons.edit', compact('coupon'));
+        return view('app.admin.products.coupons.edit', compact('coupon'));
     }
 
     /**

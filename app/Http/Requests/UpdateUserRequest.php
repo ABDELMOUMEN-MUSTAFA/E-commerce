@@ -28,6 +28,7 @@ class UpdateUserRequest extends FormRequest
             'first_name' => 'nullable|string|max:50',
             'last_name' => 'nullable|string|max:50',
             'password' => 'bail|nullable|confirmed|min:8|string',
+            'country_id' => 'bail|nullable|integer|exists:countries,id',
             'current_password' => [
                 function($attribute, $value, $fail){
                     if(!empty(request()->password)){

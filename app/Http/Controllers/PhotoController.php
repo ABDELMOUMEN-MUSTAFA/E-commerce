@@ -12,7 +12,7 @@ class PhotoController extends Controller
 {
     public function create(Product $product)
     {
-        return view('app.products.photos.create', compact('product'));
+        return view('app.admin.products.photos.create', compact('product'));
     }
 
     public function store(Request $request)

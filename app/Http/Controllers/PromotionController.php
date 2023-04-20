@@ -12,7 +12,7 @@ class PromotionController extends Controller
 
     public function create(Product $product)
     {
-        return view('app.products.promotions.create', compact('product'));
+        return view('app.admin.products.promotions.create', compact('product'));
     }
 
     /**
@@ -39,7 +39,7 @@ class PromotionController extends Controller
      */
     public function edit(Promotion $promotion)
     {
-        return view('app.products.promotions.edit', compact('promotion'));
+        return view('app.admin.products.promotions.edit', compact('promotion'));
     }
 
     /**

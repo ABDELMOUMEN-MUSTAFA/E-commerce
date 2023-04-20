@@ -19,7 +19,7 @@ class IsActiveAdminMiddleware
         $user = auth()->user();
         // Not Admin Account
         if(!$user->is_admin){
-            abort(403);
+            return redirect()->route('home');
         }
         
         // Suspended Account 

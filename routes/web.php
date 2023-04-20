@@ -16,6 +16,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AddressController;
 use App\Models\User;
 
 /*
@@ -31,12 +32,13 @@ use App\Models\User;
 
 // Dashboard
 Route::get('/', function () {
-	return view('test');
+	return view('public.index');
 })->name('index');
 
 Auth::routes(['verify' => true]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
+	// Admin Routes
 	Route::group(['middleware' => 'is_active_admin', 'prefix' => 'admin'], function(){
 		// Categories
 		Route::resource('categories', CategoryController::class);
@@ -90,12 +92,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::put('promotions/{promotion}', [PromotionController::class, 'update'])->name('promotions.update');
 		Route::delete('promotions/{product}/clearExpired', [PromotionController::class, 'clearExpired'])->name('promotions.clearExpired');
 
-		// Dashboard
+		// Dashboard Admin
 		Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
 		// Users
 		Route::get('settings', [UserController::class, 'editSettings'])->name('settings.edit');
-		Route::put('settings', [UserController::class, 'updateSettings'])->name('settings.update');
 		Route::resource('users', UserController::class);
 		Route::patch('users/{user}/toggleActive', [UserController::class, 'toggleActive'])->name('users.toggleActive');
 
@@ -107,9 +108,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::patch('orders/{order}/changeOrderStatus', [OrderController::class, 'changeOrderStatus'])->name('orders.changeOrderStatus');
 	});
 
+	// User
+	Route::put('settings', [UserController::class, 'updateSettings'])->name('settings.update');
+
 	// Auth (account suspended)
 	Route::view('account-suspended', 'auth.banned')->name('suspended');
 
+
+	// Customer Routes
+	Route::group(['prefix' => 'customer'], function(){
+		// Dashboard Customer
+		Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+		Route::resource('addresses', AddressController::class)->only(['store', 'update']);
+
+	});
+	
 });
 
 // Lock Screen

@@ -14,7 +14,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        return view('app.users.countries.index', ['countries' => Country::all()]);
+        return view('app.admin.users.countries.index', ['countries' => Country::all()]);
     }
 
     /**
@@ -24,7 +24,7 @@ class CountryController extends Controller
      */
     public function create()
     {
-        return view('app.users.countries.create');
+        return view('app.admin.users.countries.create');
     }
 
     /**

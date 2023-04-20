@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Country;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('app.dashboard');
+        if(auth()->user()->is_admin){
+            return view('app.admin.dashboard');
+        }
+
+        $countries = Country::all();
+        return view('app.customer.dashboard', compact('countries'));
     }
 }

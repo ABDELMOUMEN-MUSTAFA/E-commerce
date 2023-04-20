@@ -7,57 +7,18 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $validated = $request->validate([
+            'address' => 'required|string|between:3,250',
+            'city' => 'required|string|between:3,100',
+            'postal_code' => 'required|integer|regex:/^[0-9]{3,6}$/'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Address $address)
-    {
-        //
-    }
+        $validated['user_id'] = auth()->user()->id;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Address $address)
-    {
-        //
+        Address::create($validated);
+        return back()->with('message', 'Address added successfuly.');
     }
 
     /**
@@ -69,17 +30,17 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
-        //
-    }
+        $validated = $request->validate([
+            'address' => 'required|string|between:3,250',
+            'city' => 'required|string|between:3,100',
+            'postal_code' => 'required|integer|regex:/^[0-9]{3,6}$/'
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Address $address)
-    {
-        //
+        $address->address = $validated['address'];
+        $address->city = $validated['city'];
+        $address->postal_code = $validated['postal_code'];
+        $address->user_id = auth()->user()->id;
+
+        return back()->with('message', 'Address updated successfuly.');
     }
 }

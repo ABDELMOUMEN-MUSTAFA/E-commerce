@@ -16,7 +16,7 @@ class SubcategoryController extends Controller
      */
     public function index() 
     {
-        return view('app.subcategories.index', ['subcategories' => Subcategory::all()->sortBy('category_id')]);
+        return view('app.admin.subcategories.index', ['subcategories' => Subcategory::all()->sortBy('category_id')]);
     }
 
     /**
@@ -26,7 +26,7 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        return view('app.subcategories.create', ['categories' => Category::all()]);
+        return view('app.admin.subcategories.create', ['categories' => Category::all()]);
     }
 
     /**
@@ -62,7 +62,7 @@ class SubcategoryController extends Controller
     public function edit(Subcategory $subcategory)
     {
         $categories = Category::all();
-        return view('app.subcategories.edit', compact('subcategory', 'categories'));
+        return view('app.admin.subcategories.edit', compact('subcategory', 'categories'));
     }
 
     /**

@@ -14,7 +14,7 @@ class ColorController extends Controller
      */
     public function index()
     {
-        return view('app.products.productVariants.colors.index', ['colors' => Color::all()]);
+        return view('app.admin.products.productVariants.colors.index', ['colors' => Color::all()]);
     }
 
     /**
@@ -24,7 +24,7 @@ class ColorController extends Controller
      */
     public function create()
     {
-        return view('app.products.productVariants.colors.create');
+        return view('app.admin.products.productVariants.colors.create');
     }
 
     /**

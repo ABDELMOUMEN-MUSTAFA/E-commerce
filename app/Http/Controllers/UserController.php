@@ -13,12 +13,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('app.users.index', ['users' => User::where('id', '!=', auth()->user()->id)->get()]);
+        return view('app.admin.users.index', ['users' => User::where('id', '!=', auth()->user()->id)->get()]);
     }
 
     public function create()
     {
-    	return view('app.users.createAdmin', ['countries' => Country::all()]);
+    	return view('app.admin.users.createAdmin', ['countries' => Country::all()]);
     }
 
     public function store(StoreUserRequest $request) 
@@ -64,12 +64,12 @@ class UserController extends Controller
         ->join('products', 'order_product.product_id', '=', 'products.id')
         ->get();
 
-        return view('app.users.show', compact('user', 'boughtProducts', 'revenue', 'boughtProductsDetails'));
+        return view('app.admin.users.show', compact('user', 'boughtProducts', 'revenue', 'boughtProductsDetails'));
     }
 
     public function edit(User $user)
     {
-        return view('app.users.edit', ['user' => $user, 'countries' => Country::all()]);
+        return view('app.admin.users.edit', ['user' => $user, 'countries' => Country::all()]);
     }
 
     public function update(Request $request, User $user)

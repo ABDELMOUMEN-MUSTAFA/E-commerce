@@ -18,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('app.products.index', ['products' => Product::all()]);
+        return view('app.admin.products.index', ['products' => Product::all()]);
     }
 
     /**
@@ -28,7 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('app.products.create', ['categories' => Category::all()]);
+        return view('app.admin.products.create', ['categories' => Category::all()]);
     }
 
     /**
@@ -62,7 +62,7 @@ class ProductController extends Controller
             return $order->pivot->quantity * $order->pivot->unit_price; 
         })->sum();
 
-        return view('app.products.show', compact('product', 'revenue'));
+        return view('app.admin.products.show', compact('product', 'revenue'));
     }
 
     /**
@@ -74,7 +74,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('app.products.edit', compact('categories', 'product'));
+        return view('app.admin.products.edit', compact('categories', 'product'));
     }
 
     /**
