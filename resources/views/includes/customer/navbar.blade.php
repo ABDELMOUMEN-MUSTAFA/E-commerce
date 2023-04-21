@@ -106,12 +106,23 @@
                                 <a href="{{route('login')}}"><i class="icon-user"></i></a>
                             </div>
                             @endguest
+                            @auth
                             <div class="same-style-2">
-                                <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
+                                <a href="{{route('home')}}"><i class="icon-user"></i></a>
+                            </div>
+                            @endauth
+                            <div class="same-style-2">
+                                <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">3</span></a>
                             </div>
                             <div class="same-style-2 header-cart">
-                                <a class="cart-active" href="#">
-                                    <i class="icon-basket-loaded"></i><span class="pro-count red">02</span>
+                                <a href="{{route('myShoppingCart')}}">
+                                    <i class="icon-basket-loaded"></i><span id="shooping-cart-count" class="pro-count red">
+                                        @if(auth()->check())
+                                            {{auth()->user()->products->count()}}
+                                        @else
+                                            0
+                                        @endif
+                                    </span>
                                 </a>
                             </div>
                         </div>
@@ -130,9 +141,16 @@
                 </div>
                 <div class="col-7">
                     <div class="header-action header-action-flex">
+                        @guest
                         <div class="same-style-2">
-                            <a href="login-register.html"><i class="icon-user"></i></a>
+                            <a href="{{route('login')}}"><i class="icon-user"></i></a>
                         </div>
+                        @endguest
+                        @auth
+                        <div class="same-style-2">
+                            <a href="{{route('home')}}"><i class="icon-user"></i></a>
+                        </div>
+                        @endauth
                         <div class="same-style-2">
                             <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
                         </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\StoreController;
 use App\Models\User;
 
 /*
@@ -29,11 +30,6 @@ use App\Models\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Dashboard
-Route::get('/', function () {
-	return view('public.index');
-})->name('index');
 
 Auth::routes(['verify' => true]);
 
@@ -104,7 +100,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::resource('countries', CountryController::class)->except(['edit', 'show']);
 
 		// Orders
-		Route::resource('orders', OrderController::class)->except(['create', 'store', 'edit']);
+		Route::resource('orders', OrderController::class)->except(['create', 'store', 'edit', 'destroy']);
 		Route::patch('orders/{order}/changeOrderStatus', [OrderController::class, 'changeOrderStatus'])->name('orders.changeOrderStatus');
 	});
 
@@ -123,7 +119,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 	});
 	
+	// Shopping Cart
+	Route::post('/addToShoppingCart', [StoreController::class, 'addToShoppingCart']);	
+	Route::patch('/updateShoppingCart', [StoreController::class, 'updateShoppingCart'])->name('updateShoppingCart');
+	Route::delete('/removeProductFromShoppingCart/{product}', [StoreController::class, 'removeProductFromShoppingCart']);
+	Route::delete('/clearAllShoppingCart', [StoreController::class, 'clearAllShoppingCart']);
+	Route::view('/showShoppingCart', 'app.customer.cart')->name('myShoppingCart');
+
+
+	// Place Order
+	Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
+	Route::patch('orders/{order}/cancelOrder', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
+
+	// Coupon
+	Route::get('coupons/{coupon:code}/checkCoupon', [CouponController::Class, 'checkCoupon']);
 });
+
+// Public Pages
+Route::get('/', [StoreController::class, 'index'])->name('index');
+Route::get('/wishlist', [StoreController::class, 'wishlist'])->name('wishlist');
+
 
 // Lock Screen
 Route::get('/lock-screen', [LockScreen::class, 'lock'])->name('screen.lock');

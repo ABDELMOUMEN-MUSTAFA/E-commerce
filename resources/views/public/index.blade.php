@@ -161,27 +161,27 @@
                 <div class="tab-content jump">
                     <div id="product-1" class="tab-pane active">
                         <div class="row">
+                            @foreach($products as $product)
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                                 <div class="single-product-wrap mb-35">
                                     <div class="product-img product-img-zoom mb-20">
                                         <a href="product-details.html">
-                                            <img src="{{ asset('images/product/product-1.jpg') }}" alt="">
+                                            <img src="{{ asset($product->photos->where('is_primary', true)->first()->source) }}" alt="">
                                         </a>
                                         <div class="product-action-wrap">
                                             <div class="product-action-left">
-                                                <button><i class="icon-basket-loaded"></i>Add to Cart</button>
+                                                <button data-id="{{$product->id}}" class="add-to-shoppingcart"><i class="icon-basket-loaded"></i>Add to Cart</button>
                                             </div>
                                             <div class="product-action-right tooltip-style">
                                                 <button data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i><span>Quick View</span></button>
-                                                <button class="font-inc"><i class="icon-refresh"></i><span>Compare</span></button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-content-wrap">
                                         <div class="product-content-left">
-                                            <h4><a href="product-details.html">Simple Black T-Shirt</a></h4>
+                                            <h4><a href="product-details.html">{{$product->name}}</a></h4>
                                             <div class="product-price">
-                                                <span>$56.20</span>
+                                                <span>{{$product->price}}</span>
                                             </div>
                                         </div>
                                         <div class="product-content-right tooltip-style">
@@ -190,6 +190,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                                 <div class="single-product-wrap mb-35">
                                     <div class="product-img product-img-zoom mb-20">
@@ -1284,3 +1285,24 @@
 @endsection
 
 
+
+@section('scripts')
+<script>
+    $('.add-to-shoppingcart').one('click', function () {
+        $.ajax({
+            url : '/addToShoppingCart',
+            type: 'POST',
+            data : { "product_id" : $(this).data('id'), quantity : 1, "_token" : "{{ csrf_token() }}" },
+            success: function(respose, textStatus, xhr){
+                const counter = Number($('#shooping-cart-count').text()) + 1;
+                $('#shooping-cart-count').text(counter);
+            },
+            error : function(respose){
+                if(xhr.status !== 400){
+                    window.location.href = "{{route('login')}}";
+                }
+            }
+        });
+    });
+</script>
+@endsection

@@ -110,4 +110,12 @@ class CouponController extends Controller
         $coupon->save();
         return redirect()->route('coupons.index')->with('message', 'The coupon <strong>'.$coupon->code.'</strong> status changed successfully.');
     }
+
+    public function checkCoupon(Coupon $coupon){
+        if($coupon->is_active === false || $coupon->usage_limit === 0 || $coupon->expiration_date < now()){
+            abort(404);
+        }
+
+        return response()->json(['message' => 'coupon successfully applied, place now your order.']);
+    }
 }

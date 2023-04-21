@@ -40,7 +40,6 @@
 <body>
     <div class="main-wrapper">
         @include('includes.customer.navbar')
-        @include('includes.customer.miniShoppingCart')
         @include('includes.customer.mobileMenu')
         @yield('content', '')
     </div>

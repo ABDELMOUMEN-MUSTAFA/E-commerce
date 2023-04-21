@@ -111,6 +111,7 @@
 	                                                        <th>Date</th>
 	                                                        <th>Status</th>
 	                                                        <th>Total</th>
+	                                                        <th>Action</th>
 	                                                    </tr>
 	                                                </thead>
 	                                                <tbody>
@@ -126,7 +127,7 @@
 	                                                        @elseif($order->orderStatus->status === 'Delivered')
 	                                                        <td>{{$order->delivered_at->format('d/m/Y H:i')}}</td>
 	                                                        @else
-	                                                        <td>{{$order->cancelled->format('d/m/Y H:i')}}</td>
+	                                                        <td>{{$order->cancelled_at->format('d/m/Y H:i')}}</td>
 	                                                        @endif
 	                                                        <td>{{$order->orderStatus->status}}</td>
 	                                                        @php
@@ -142,6 +143,17 @@
 	                                                        	@endphp
 	                                                        @endforeach
 	                                                        <td>${{$total}}</td>
+	                                                        @if($order->cancelled_at === null)
+	                                                        	<td>
+	                                                        		<a onclick="event.preventDefault();$('#cancel-order-form').submit()" href="javascript:void(0)">Cancel</a>
+	                                                        		<form class="d-none" id="cancel-order-form" method="POST" action="{{route('cancelOrder', $order->id)}}">
+	                                                        			@csrf
+	                                                        			@method('PATCH')
+	                                                        		</form>
+	                                                        	</td>
+	                                                        @else
+	                                                        	<td>No action</td>
+	                                                        @endif
 	                                                    </tr>
 	                                                    
 	                                                    @endforeach
@@ -161,7 +173,7 @@
                                     <div class="myaccount-content">
                                         <h3>Downloads</h3>
                                         
-                                        @if(count($digitalProducts) > 0)
+                                        @if(isset($digitalProducts) && count($digitalProducts) > 0)
 	                                        <div class="myaccount-table table-responsive text-center">
 	                                            <table class="table table-bordered">
 	                                                <thead class="thead-light">
