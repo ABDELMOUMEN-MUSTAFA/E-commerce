@@ -49,9 +49,9 @@
                             	@foreach(auth()->user()->products as $product)
                                 <tr>
                                     <td class="product-thumbnail">
-                                        <a href="#"><img src="{{asset($product->photos->where('is_primary', true)->first()->source)}}" alt="product image" style="max-height: 90px"></a>
+                                        <a href="{{route('productDetails', $product->id)}}"><img src="{{asset($product->photos->where('is_primary', true)->first()->source)}}" alt="product image" style="max-height: 90px"></a>
                                     </td>
-                                    <td class="product-name"><a href="#">{{$product->name}}</a></td>
+                                    <td class="product-name"><a href="{{route('productDetails', $product->id)}}">{{$product->name}}</a></td>
                                     <td class="product-price-cart"><span class="amount">{{$product->price}}</span></td>
                                     <td class="product-quantity pro-details-quality">
                                         <div class="cart-plus-minus">

@@ -18,6 +18,8 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SliderController;
 use App\Models\User;
 
 /*
@@ -102,6 +104,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		// Orders
 		Route::resource('orders', OrderController::class)->except(['create', 'store', 'edit', 'destroy']);
 		Route::patch('orders/{order}/changeOrderStatus', [OrderController::class, 'changeOrderStatus'])->name('orders.changeOrderStatus');
+
+		// Sliders
+		Route::resource('sliders', SliderController::class)->except('show');
+
+		// Our Collection
+		Route::get('ourCollection', [SliderController::class, 'ourCollection'])->name('ourCollection');
+		Route::get('createCollection', [SliderController::class, 'createCollection'])->name('createCollection');
+		Route::post('storeCollection', [SliderController::class, 'storeCollection'])->name('storeCollection');
+		Route::get('editCollection/{ourCollection}', [SliderController::class, 'editCollection'])->name('editCollection');
+		Route::put('updateCollection/{ourCollection}', [SliderController::class, 'updateCollection'])->name('updateCollection');
+		Route::delete('deleteCollection/{ourCollection}', [SliderController::class, 'deleteCollection'])->name('deleteCollection');
 	});
 
 	// User
@@ -120,7 +133,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 	});
 	
 	// Shopping Cart
-	Route::post('/addToShoppingCart', [StoreController::class, 'addToShoppingCart']);	
+	Route::post('/addToShoppingCart', [StoreController::class, 'addToShoppingCart'])->name('addToShoppingCart');	
 	Route::patch('/updateShoppingCart', [StoreController::class, 'updateShoppingCart'])->name('updateShoppingCart');
 	Route::delete('/removeProductFromShoppingCart/{product}', [StoreController::class, 'removeProductFromShoppingCart']);
 	Route::delete('/clearAllShoppingCart', [StoreController::class, 'clearAllShoppingCart']);
@@ -133,11 +146,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 	// Coupon
 	Route::get('coupons/{coupon:code}/checkCoupon', [CouponController::Class, 'checkCoupon']);
+
+	// Review
+	Route::resource('reviews', ReviewController::class)->except(['index', 'create', 'edit', 'update', 'show']);
 });
 
 // Public Pages
 Route::get('/', [StoreController::class, 'index'])->name('index');
-Route::get('/wishlist', [StoreController::class, 'wishlist'])->name('wishlist');
+Route::view('/wishlist', 'app.customer.wishlist')->name('wishlist');
+Route::view('/shop', 'app.customer.shop')->name('shop');
+Route::get('/productDetails/{product}', [StoreController::class, 'productDetails'])->name('productDetails');
 
 
 // Lock Screen

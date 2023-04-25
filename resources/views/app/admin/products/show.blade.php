@@ -205,7 +205,55 @@
                                 No variants for this product
                             </div>
                         @endif
-                        <hr />
+                    @else
+                        @forelse($product->files as $file)
+                            @if ($loop->first)
+                            <h5 class="mb-2">Attached Files</h5>
+                            <div class="row mx-n1 g-0">
+                            @endif
+                            <div class="col-xxl-3 col-lg-6">
+                                <div class="card m-1 shadow-none border">
+                                    <div class="p-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <div class="avatar-sm">
+                                                    <span class="avatar-title bg-light text-secondary rounded">
+                                                        <i class="mdi mdi-file font-16"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col ps-0">
+                                                <span data-id="{{$file->id}}" class="text-muted fw-bold">{{$file->name}}</span>
+                                                <p class="mb-0 font-13">{{$file->size}}</p>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="btn-group dropdown">
+                                                    <a href="#" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-xs" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <button class="dropdown-item rename" data-id="{{$file->id}}"><i class="mdi mdi-pencil me-2 text-muted vertical-middle"></i>Rename</button>
+                                                        <a class="dropdown-item" href="{{route('files.download', $file->id)}}"><i class="mdi mdi-download me-2 text-muted vertical-middle"></i>Download</a>
+                                                        <form method="POST" action="{{route('files.destroy', $file->id)}}">
+                                                        <button class="dropdown-item"><i class="mdi mdi-delete me-2 text-muted vertical-middle"></i>Remove</button>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end row -->
+                                    </div> <!-- end .p-2-->
+                                </div> <!-- end col -->
+                            </div> <!-- end col-->
+                            @if ($loop->last)
+                                </div> <!-- end row-->
+                            @endif
+                        @empty
+                            <div class="alert alert-info bg-info text-white border-0" role="alert">
+                                No file attached
+                            </div>
+                        @endforelse
+                    @endif
+                    <hr />
                         <div class="d-flex justify-content-between mb-2">
                             <h5>Product Promotions</h5>
                             @if($product->promotions->min('end_date') < now())
@@ -271,54 +319,6 @@
                                     </tbody>
                             </table>
                         </div> <!-- end table-responsive-->
-                    @else
-                        @forelse($product->files as $file)
-                            @if ($loop->first)
-                            <h5 class="mb-2">Attached Files</h5>
-                            <div class="row mx-n1 g-0">
-                            @endif
-                            <div class="col-xxl-3 col-lg-6">
-                                <div class="card m-1 shadow-none border">
-                                    <div class="p-2">
-                                        <div class="row align-items-center">
-                                            <div class="col-auto">
-                                                <div class="avatar-sm">
-                                                    <span class="avatar-title bg-light text-secondary rounded">
-                                                        <i class="mdi mdi-file font-16"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col ps-0">
-                                                <span data-id="{{$file->id}}" class="text-muted fw-bold">{{$file->name}}</span>
-                                                <p class="mb-0 font-13">{{$file->size}}</p>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="btn-group dropdown">
-                                                    <a href="#" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-xs" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <button class="dropdown-item rename" data-id="{{$file->id}}"><i class="mdi mdi-pencil me-2 text-muted vertical-middle"></i>Rename</button>
-                                                        <a class="dropdown-item" href="{{route('files.download', $file->id)}}"><i class="mdi mdi-download me-2 text-muted vertical-middle"></i>Download</a>
-                                                        <form method="POST" action="{{route('files.destroy', $file->id)}}">
-                                                        <button class="dropdown-item"><i class="mdi mdi-delete me-2 text-muted vertical-middle"></i>Remove</button>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end row -->
-                                    </div> <!-- end .p-2-->
-                                </div> <!-- end col -->
-                            </div> <!-- end col-->
-                            @if ($loop->last)
-                                </div> <!-- end row-->
-                            @endif
-                        @empty
-                            <div class="alert alert-info bg-info text-white border-0" role="alert">
-                                No file attached
-                            </div>
-                        @endforelse
-                    @endif
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
         </div> <!-- end col-->

@@ -1008,6 +1008,10 @@
         $('.curr-dropdown-active').slideToggle(900);
     });
     
+    const products = JSON.parse(localStorage.getItem('products'));
+    if(products !== null){
+        $('.wishlist-count').text(products.length);
+    }
     
 })(jQuery);
 

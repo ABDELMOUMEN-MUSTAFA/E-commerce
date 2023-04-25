@@ -31,4 +31,6 @@ class HomeController extends Controller
         $countries = Country::all();
         return view('app.customer.dashboard', compact('countries'));
     }
+
+    
 }

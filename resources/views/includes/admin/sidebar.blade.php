@@ -2,22 +2,22 @@
 <div class="leftside-menu">
 
     <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-light">
+    <a href="{{route('index')}}" class="logo text-center logo-light">
         <span class="logo-lg">
-            <img src="{{ asset('images/logo.png') }}" alt="logo" height="16">
+            <img src="{{ asset('/images/logo/logo.png') }}" alt="logo" height="90">
         </span>
         <span class="logo-sm">
-            <img src="{{ asset('images/logo_sm.png') }}" alt="logo" height="16">
+            <img src="{{ asset('/images/logo/logo.png') }}" alt="logo" height="90">
         </span>
     </a>
 
     <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-dark">
+    <a href="{{route('index')}}" class="logo text-center logo-dark">
         <span class="logo-lg">
-            <img src="{{ asset('images/logo-dark.png') }}" alt="" height="16">
+            <img src="{{ asset('/images/logo/logo.png') }}" alt="" height="90">
         </span>
         <span class="logo-sm">
-            <img src="{{ asset('images/logo_sm_dark.png') }}" alt="" height="16">
+            <img src="{{ asset('/images/logo/logo.png') }}" alt="" height="90">
         </span>
     </a>
 
@@ -152,6 +152,26 @@
                     <ul class="side-nav-second-level">
                         <li>
                             <a href="{{route('orders.index')}}">All Orders</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarSlider" aria-expanded="false" aria-controls="sidebarSlider" class="side-nav-link">
+                    <i class="uil-store"></i>
+                    <span>Manage Sliders</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarSlider">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{route('sliders.index')}}">All Sliders</a>
+                        </li>
+                        <li>
+                            <a href="{{route('sliders.create')}}">Add Slider</a>
+                        </li>
+                        <li>
+                            <a href="{{route('ourCollection')}}">Our Collections</a>
                         </li>
                     </ul>
                 </div>

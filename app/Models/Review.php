@@ -10,6 +10,7 @@ use App\models\Product;
 class Review extends Model
 {
     use HasFactory;
+    
     protected $guarded = [];
 
     public function user()

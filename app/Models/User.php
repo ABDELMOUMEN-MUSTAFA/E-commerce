@@ -11,6 +11,7 @@ use App\Models\Conversation;
 use App\Models\ChatMessage;
 use App\Models\Product;
 use App\Models\Country;
+use App\Models\Review;
 use App\Models\Order;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -37,6 +38,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function receivedMessages()
     {
         return $this->hasMany(ChatMessage::class, 'recipient_id');
+    }
+
+    public function reviews(){
+        return $this->hasMany(Review::class);
     }
 
     public function products()
