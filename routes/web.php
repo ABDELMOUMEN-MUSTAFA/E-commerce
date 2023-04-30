@@ -154,7 +154,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Public Pages
 Route::get('/', [StoreController::class, 'index'])->name('index');
 Route::view('/wishlist', 'app.customer.wishlist')->name('wishlist');
-Route::view('/shop', 'app.customer.shop')->name('shop');
+Route::get('/shop/{category?}/{criteria?}/{minPrice?}/{maxPrice?}', [StoreController::class, 'shop'])->name('shop');
 Route::get('/productDetails/{product}', [StoreController::class, 'productDetails'])->name('productDetails');
 
 

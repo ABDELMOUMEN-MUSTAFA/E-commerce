@@ -2,13 +2,31 @@
 
 @section('title', 'My Wishlist')
 
+@section('styles')
+<style>
+    .wishlist-clear button {
+        border: medium none;
+        cursor: pointer;
+        padding: 10px 30px;
+        -webkit-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+
+    .wishlist-clear button:hover {
+        background-color: #ff2f2f;
+        color: #fff;
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="breadcrumb-area bg-gray">
             <div class="container">
                 <div class="breadcrumb-content text-center">
                     <ul>
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="{{route('index')}}">Home</a>
                         </li>
                         <li class="active">Wishlist </li>
                     </ul>
@@ -37,6 +55,9 @@
                             </div>
                         </form>
                     </div>
+                </div>
+                <div class="wishlist-clear mt-3">
+                    <button id="clear-wishlist">Clear Wishlist</button>
                 </div>
             </div>
         </div>
@@ -84,5 +105,11 @@
         });
     });
 
+
+    // clear wishlist
+    $('#clear-wishlist').click(function(){
+        localStorage.clear();
+        $wishlistProducts.text("");
+    });
 </script>
 @endsection

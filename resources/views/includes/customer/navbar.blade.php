@@ -9,7 +9,7 @@
                         </div>
                     </div>
                     <div class="col-xl-8 col-lg-7">
-                        <div class="main-menu main-menu-padding-1 main-menu-lh-1">
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-1 text-center">
                             <nav>
                                 <ul>
                                     <li>
@@ -30,8 +30,8 @@
                                     <i class="icon_close s-close"></i>
                                 </a>
                                 <div class="search-wrap-1">
-                                    <form action="#">
-                                        <input placeholder="Search products…" type="text">
+                                    <form method="GET" action="{{route('shop')}}">
+                                        <input name="query" placeholder="Search products…" type="text">
                                         <button class="button-search"><i class="icon-magnifier"></i></button>
                                     </form>
                                 </div>

@@ -27,6 +27,18 @@ class Product extends Model
         'category_id'
     ];
 
+    protected $appends = ['discount'];
+
+    public function getDiscountAttribute()
+    {
+        foreach ($this->promotions as $promotion) {
+            if($promotion->end_date >= now()){
+                return $promotion->discount;
+            }
+            return null;
+        }
+    }
+
     public function getPriceAttribute($price)
     {
         return '$'.$price;

@@ -42,7 +42,7 @@
         <div class="breadcrumb-content text-center">
             <ul>
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{route('index')}}">Home</a>
                 </li>
                 <li class="active">My account</li>
             </ul>

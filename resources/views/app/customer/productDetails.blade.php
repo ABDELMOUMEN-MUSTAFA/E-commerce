@@ -2,6 +2,18 @@
 
 @section('title', 'Product Details')
 
+@section('styles')
+<style>
+    .multiline-ellipsis {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4; 
+        white-space: pre-wrap; 
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="breadcrumb-area bg-gray">
     <div class="container">
@@ -108,7 +120,7 @@
                     </div>
                     @endif
                     <div class="description mb-3">
-                        <p>{{$product->description}}</p>
+                        <p class="multiline-ellipsis">{{$product->description}}</p>
                     </div>
                     <div class="pro-details-action-wrap">
                         <div class="pro-details-add-to-cart">

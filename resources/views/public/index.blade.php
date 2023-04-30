@@ -89,16 +89,15 @@ use App\Models\Product;
                 <div class="border-bottom-1 about-content-pb">
                     <div class="row">
                         <div class="col-lg-3 col-md-3">
-                            <div class="about-us-logo">
-                                <img src="{{ asset('images/about/logo.png') }}" alt="logo">
+                            <div class="about-us-logo text-center">
+                                <img src="{{ asset('images/logo/logo.png') }}" height="150" alt="logo">
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-9">
                             <div class="about-us-content">
-                                <h3>Introduce</h3>
-                                <p>Norda store is a business concept is to offer fashion and quality at the best price. It has since it was founded in 2018 grown into one of the best WooCommerce Fashion Theme. The content of this site is copyright-protected and is the property of David Moye Creative.</p>
+                                <p>Welcome to our store, where we offer a wide range of both digital and physical products to cater to all of your needs. We are committed to providing our customers with a convenient and personalized shopping experience that matches their unique preferences and lifestyles.</p>
                                 <div class="signature">
-                                    <h2>David Moye</h2>
+                                    <h2>ABDELMOUMEN MUSTAFA</h2>
                                 </div>
                             </div>
                         </div>
@@ -146,9 +145,6 @@ use App\Models\Product;
                                         <div class="product-action-wrap">
                                             <div class="product-action-left">
                                                 <button data-id="{{$product->id}}" class="add-to-shoppingcart"><i class="icon-basket-loaded"></i>Add to Cart</button>
-                                            </div>
-                                            <div class="product-action-right tooltip-style">
-                                                <button data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i><span>Quick View</span></button>
                                             </div>
                                         </div>
                                     </div>
@@ -201,9 +197,6 @@ use App\Models\Product;
                                         <div class="product-action-wrap">
                                             <div class="product-action-left">
                                                 <button data-id="{{$product->id}}" class="add-to-shoppingcart"><i class="icon-basket-loaded"></i>Add to Cart</button>
-                                            </div>
-                                            <div class="product-action-right tooltip-style">
-                                                <button data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i><span>Quick View</span></button>
                                             </div>
                                         </div>
                                     </div>
