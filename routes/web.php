@@ -92,6 +92,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 		// Dashboard Admin
 		Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+		Route::get('/getMonthlyStatistics', [HomeController::class, 'getMonthlyStatistics'])->name('getMonthlyStatistics');
 
 		// Users
 		Route::get('settings', [UserController::class, 'editSettings'])->name('settings.edit');

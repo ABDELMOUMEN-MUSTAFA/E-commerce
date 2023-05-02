@@ -8,9 +8,9 @@
         <div class="card">
 
             <!-- Logo -->
-            <div class="card-header pt-4 pb-4 text-center bg-primary">
+            <div class="card-header py-2 text-center bg-primary">
                 <a href="{{route('index')}}">
-                    <span><img src="{{ asset('images/logo.png') }}" alt="website logo" height="18"></span>
+                    <span><img src="{{ asset('images/logo/logo.png') }}" alt="website logo" height="80"></span>
                 </a>
             </div>
 

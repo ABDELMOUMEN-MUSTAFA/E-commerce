@@ -17,14 +17,23 @@ class StoreController extends Controller
 {
     public function index()
     {
-    	$bestSellingProducts = DB::table('products')
-        ->select(DB::raw('COUNT(products.id) as numberDelivered, products.*, photos.source'))
-        ->join('photos', 'products.id', '=', 'photos.product_id')
-        ->join('order_product', 'products.id', '=', 'order_product.product_id')
+        $bestSellingProducts = DB::table('order_product')
+        ->select(DB::raw('
+            products.id,
+            products.name,
+            products.quantity_in_stock,
+            products.price, 
+            (
+                SELECT photos.source 
+                FROM photos 
+                WHERE photos.product_id = products.id AND is_primary = 1
+            ) AS primary_img,
+            SUM(order_product.quantity * order_product.unit_price) AS amount'))
         ->join('orders', 'order_product.order_id', '=', 'orders.id')
+        ->join('products', 'order_product.product_id', '=', 'products.id')
         ->where('order_status_id', 4)
-        ->groupBy('products.id', 'photos.source')
-        ->orderBy('numberDelivered', 'desc')
+        ->groupBy('order_product.product_id')
+        ->orderBy('amount', 'desc')
         ->take(8)
         ->get();
 

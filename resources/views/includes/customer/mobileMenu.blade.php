@@ -21,9 +21,9 @@
             </div>
             <div class="mobile-contact-info mobile-header-padding-border-4">
                 <ul>
-                    <li><i class="icon-phone "></i> (+612) 2531 5600</li>
-                    <li><i class="icon-envelope-open "></i> norda@domain.com</li>
-                    <li><i class="icon-home"></i> PO Box 1622 Colins Street West Australia</li>
+                    <li><i class="icon-phone "></i> (+212) 649721816</li>
+                    <li><i class="icon-envelope-open "></i> shopfrommestore@gmail.com</li>
+                    <li><i class="icon-home"></i> rue Jean Jacques Rousseau, 2°et. appt. 5, Grand Casablanca</li>
                 </ul>
             </div>
         </div>

@@ -4,20 +4,10 @@
     <!-- LOGO -->
     <a href="{{route('index')}}" class="logo text-center logo-light">
         <span class="logo-lg">
-            <img src="{{ asset('/images/logo/logo.png') }}" alt="logo" height="90">
+            <img src="{{ asset('/images/logo/logo.png') }}" alt="logo" height="80">
         </span>
         <span class="logo-sm">
-            <img src="{{ asset('/images/logo/logo.png') }}" alt="logo" height="90">
-        </span>
-    </a>
-
-    <!-- LOGO -->
-    <a href="{{route('index')}}" class="logo text-center logo-dark">
-        <span class="logo-lg">
-            <img src="{{ asset('/images/logo/logo.png') }}" alt="" height="90">
-        </span>
-        <span class="logo-sm">
-            <img src="{{ asset('/images/logo/logo.png') }}" alt="" height="90">
+            <img src="{{ asset('/images/logo/logo.png') }}" alt="logo" height="40">
         </span>
     </a>
 
@@ -30,7 +20,7 @@
 
             <li class="side-nav-item">
                 <a href="{{route('home')}}" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="uil-analytics"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
@@ -39,7 +29,7 @@
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarCategories" aria-expanded="false" aria-controls="sidebarCategories" class="side-nav-link">
-                    <i class="uil-store"></i>
+                    <i class="uil-apps"></i>
                     <span>Manage Categories</span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -56,7 +46,7 @@
             </li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarSubcategories" aria-expanded="false" aria-controls="sidebarSubcategories" class="side-nav-link">
-                    <i class="uil-store"></i>
+                    <i class="uil-th-slash"></i>
                     <span>Manage Subcategories</span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -73,7 +63,7 @@
             </li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarProducts" aria-expanded="false" aria-controls="sidebarProducts" class="side-nav-link">
-                    <i class="uil-store"></i>
+                    <i class="mdi mdi-shopping"></i>
                     <span>Manage Products</span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -90,7 +80,7 @@
             </li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarVariants" aria-expanded="false" aria-controls="sidebarVariants" class="side-nav-link">
-                    <i class="uil-store"></i>
+                    <i class="uil-exchange"></i>
                     <span>Manage Variants</span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -107,7 +97,7 @@
             </li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarCoupons" aria-expanded="false" aria-controls="sidebarCoupons" class="side-nav-link">
-                    <i class="uil-store"></i>
+                    <i class="uil-dollar-alt"></i>
                     <span>Manage Coupons</span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -124,7 +114,7 @@
             </li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarUsers" aria-expanded="false" aria-controls="sidebarUsers" class="side-nav-link">
-                    <i class="uil-store"></i>
+                    <i class="uil-users-alt"></i>
                     <span>Manage Users</span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -144,7 +134,7 @@
             </li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarOrders" aria-expanded="false" aria-controls="sidebarOrders" class="side-nav-link">
-                    <i class="uil-store"></i>
+                    <i class="uil-shopping-trolley"></i>
                     <span>Manage Orders</span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -158,7 +148,7 @@
             </li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarSlider" aria-expanded="false" aria-controls="sidebarSlider" class="side-nav-link">
-                    <i class="uil-store"></i>
+                    <i class="uil-sliders-v"></i>
                     <span>Manage Sliders</span>
                     <span class="menu-arrow"></span>
                 </a>

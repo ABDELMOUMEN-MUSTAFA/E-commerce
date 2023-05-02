@@ -32,11 +32,11 @@
                 </div>
                 <div class="single-contact-info">
                     <span>Our Location</span>
-                    <p>869 General Village Apt. 645, Moorebury, USA</p>
+                    <p>rue Jean Jacques Rousseau, 2°et. appt. 5, Grand Casablanca</p>
                 </div>
                 <div class="single-contact-info">
                     <span>24/7 hotline:</span>
-                    <p>(+99) 052 128 2399</p>
+                    <p>(+212) 649721816</p>
                 </div>
             </div>
         </div>

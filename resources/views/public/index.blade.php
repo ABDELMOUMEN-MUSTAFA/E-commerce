@@ -126,7 +126,7 @@ use App\Models\Product;
                                 <div class="single-product-wrap mb-35">
                                     <div class="product-img product-img-zoom mb-20">
                                         <a href="{{route('productDetails', $product->id)}}">
-                                            <img class="image" src="{{ asset($product->source) }}" alt="product image">
+                                            <img class="image" src="{{ asset($product->primary_img) }}" alt="product image">
                                         </a>
                                         @php($discount = 0)
                                         @if($product->quantity_in_stock === 0)
