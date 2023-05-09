@@ -110,6 +110,7 @@
     $('#clear-wishlist').click(function(){
         localStorage.clear();
         $wishlistProducts.text("");
+        $('.wishlist-count').text('0');
     });
 </script>
 @endsection

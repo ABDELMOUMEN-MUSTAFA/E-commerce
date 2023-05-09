@@ -41,7 +41,7 @@ class StoreController extends Controller
         $sliders = Slider::all();
         $ourCollections = OurCollection::all();
 
-    	return view('public.index', compact('bestSellingProducts', 'newArrivals', 'sliders', 'ourCollections'));
+    	return view('app.customer.index', compact('bestSellingProducts', 'newArrivals', 'sliders', 'ourCollections'));
     }
 
     public function addToShoppingCart(Request $request)
