@@ -65,7 +65,11 @@
                             <i class="mdi mdi-currency-usd widget-icon"></i>
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Revenue</h5>
-                        <h3 class="mt-3 mb-3">${{number_format($lastTwoMonthsRevenue[1]->revenue, 2)}}</h3>
+                        @if($lastTwoMonthsRevenue->get(1) !== null)
+                        <h3 class="mt-3 mb-3">${{number_format($lastTwoMonthsRevenue->get(1)->revenue, 2)}}</h3>
+                        @else
+                        <h3 class="mt-3 mb-3">${{number_format(0, 2)}}</h3>
+                        @endif
                         <p class="mb-0 text-muted">
                             @if($percentageChange["revenue"] >= 0)
                                 <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> {{number_format($percentageChange["revenue"], 2)}}%</span>
